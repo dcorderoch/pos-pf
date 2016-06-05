@@ -1,0 +1,6 @@
+CREATE TABLE Product
+(
+    EAN BIGINT UNIQUE NOT NULL,
+    Name NVARCHAR(100) NOT NULL,
+    Price INT
+);

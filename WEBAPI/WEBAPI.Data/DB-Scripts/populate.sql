@@ -1,0 +1,1 @@
+INSERT INTO Product(EAN,Name,Price) VALUES (1,'Caja Leche 1L',575),(2,'Bolsa Arroz 2kg',750),(3,'Bolsa Azúcar 2kg',950);
