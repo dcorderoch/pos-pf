@@ -30,6 +30,11 @@ FOREIGN KEY (IDNumber)
 REFERENCES Customer(IDNumber);
 
 ALTER TABLE Sale
+ADD CONSTRAINT FK_Sale_Staff
+FOREIGN KEY (StaffID)
+REFERENCES Staff(StaffID);
+
+ALTER TABLE Sale
 ADD CONSTRAINT FK_Sale_BranchOffice
 FOREIGN KEY(BOfficeID)
 REFERENCES BranchOffice(OfficeID);
@@ -50,9 +55,9 @@ REFERENCES Product(EAN);
 -- Staff Log
 ALTER TABLE Staff_Log
 ADD CONSTRAINT PK_Staff_Log
-PRIMARY KEY (StaffID,BOfficeID,Register,Start);
+PRIMARY KEY (StaffID,Register,ShiftStart,ShiftEnd);
 
 ALTER TABLE Staff_Log
-ADD CONSTRAINT FK_Staff_Log_BOffice
-FOREIGN KEY (BOfficeID)
-REFERENCES BranchOffice(OfficeID);
+ADD CONSTRAINT FK_Staff_Log_Staff
+FOREIGN KEY (StaffID)
+REFERENCES Staff(StaffID);
