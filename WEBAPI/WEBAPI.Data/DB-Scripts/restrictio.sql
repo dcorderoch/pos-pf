@@ -55,9 +55,14 @@ REFERENCES Product(EAN);
 -- Staff Log
 ALTER TABLE Staff_Log
 ADD CONSTRAINT PK_Staff_Log
-PRIMARY KEY (StaffID,Register,ShiftStart,ShiftEnd);
+PRIMARY KEY (LogID);
 
 ALTER TABLE Staff_Log
 ADD CONSTRAINT FK_Staff_Log_Staff
 FOREIGN KEY (StaffID)
 REFERENCES Staff(StaffID);
+
+-- Supplier
+ALTER TABLE Supplier
+ADD CONSTRAINT PK_Supplier
+PRIMARY KEY (SupplerID);
