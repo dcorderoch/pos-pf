@@ -14,15 +14,13 @@ GO
 CREATE PROCEDURE STARTSALE
     @CustomerID CHAR(9), 
     @CashierID INT, 
-    @OfficeID TINYINT, 
-    @ThisSaleID BIGINT OUTPUT
+    @OfficeID TINYINT
 AS
 BEGIN
     INSERT INTO Sale(IDNumber, StaffID, BOfficeID)
     VALUES (@CustomerID, @CashierID, @OfficeID);
 
-    SET @ThisSaleID = SCOPE_IDENTITY()
-    RETURN
+    SELECT SCOPE_IDENTITY() AS ThisSaleID
 END
 GO
 
@@ -42,14 +40,12 @@ GO
 CREATE PROCEDURE STARTSHIFT
     @StaffID INT, 
     @Register INT, 
-    @MoneyOnShiftStart INT, 
-    @LogID BIGINT OUTPUT
+    @MoneyOnShiftStart INT
 AS
 BEGIN
   INSERT INTO Staff_Log(StaffID, Register, MoneyOnShiftStart)
   VALUES (@StaffID, @Register, @MoneyOnShiftStart);
 
-  SET @LogID = SCOPE_IDENTITY()
-  RETURN
+  SELECT SCOPE_IDENTITY() AS LogID
 END
 GO

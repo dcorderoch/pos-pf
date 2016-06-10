@@ -5,8 +5,8 @@ using System.Web;
 
 namespace WEBAPI.WEBAPI.Models
 {
-    public class ProdByEan
+    public class SaleIdJson
     {
-        public string EAN { get; set; }
+        public long SaleID { get; set; }
     }
 }

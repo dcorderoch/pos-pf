@@ -13,9 +13,9 @@ namespace WEBAPI.Services.Services
             return db.Products.ToList();
         }
 
-        public Product GetProduct(long pProdEan)
+        public Product GetProduct(string pProdEan)
         {
-            return db.Products.FirstOrDefault(x => x.EAN.Equals(pProdEan.ToString()));
+            return db.Products.FirstOrDefault(x => x.EAN.Equals(pProdEan));
         }
 
         public bool SaveProduct(Product pNewProduct)
@@ -26,7 +26,7 @@ namespace WEBAPI.Services.Services
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -46,16 +46,16 @@ namespace WEBAPI.Services.Services
             }
         }
 
-        public bool DeleteProduct(long pEan)
+        public bool DeleteProduct(string pEan)
         {
             try
             {
-                var Product = db.Products.FirstOrDefault(x => x.EAN.Equals(pEan.ToString()));//FirstOrDefault(x => x.EAN == pEan);
-                if (Product == null)
+                var product = db.Products.FirstOrDefault(x => x.EAN.Equals(pEan));//FirstOrDefault(x => x.EAN == pEan);
+                if (product == null)
                 {
                     return false;
                 }
-                db.Entry(Product).State = System.Data.Entity.EntityState.Deleted;
+                db.Entry(product).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
                 return true;
             }
