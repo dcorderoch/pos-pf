@@ -12,22 +12,20 @@ namespace WEBAPI.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Customer()
         {
-            this.ProductInSales = new HashSet<ProductInSale>();
+            this.Sales = new HashSet<Sale>();
         }
     
-        public string EAN { get; set; }
+        public string IDNumber { get; set; }
         public string Name { get; set; }
-        public int Price { get; set; }
-        public int Quantity { get; set; }
-        public int DailyAverageSales { get; set; }
-        public int DaysBtwnShipment { get; set; }
+        public string LastName1 { get; set; }
+        public string LastName2 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductInSale> ProductInSales { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }
