@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using WEBAPI.Data;
 
 namespace WEBAPI.Services.Services
 {
     public class ProductService : IProductService
     {
-        private PosPFDBEntities db = new PosPFDBEntities();
+        private PospfEntities db = new PospfEntities();
         public List<Product> GetProducts()
         {
             return db.Products.ToList();
@@ -16,7 +15,7 @@ namespace WEBAPI.Services.Services
 
         public Product GetProduct(long pProdEan)
         {
-            return db.Products.FirstOrDefault(x => x.EAN == pProdEan);
+            return db.Products.FirstOrDefault(x => x.EAN.Equals(pProdEan.ToString()));
         }
 
         public bool SaveProduct(Product pNewProduct)
@@ -33,7 +32,7 @@ namespace WEBAPI.Services.Services
             }
         }
 
-        public bool UpdateProduct(long pProdEan,Product pUpdatedProduct)
+        public bool UpdateProduct(string pProdEan,Product pUpdatedProduct)
         {
             try
             {
@@ -51,7 +50,7 @@ namespace WEBAPI.Services.Services
         {
             try
             {
-                var Product = db.Products.FirstOrDefault(x => x.EAN == pEan);
+                var Product = db.Products.FirstOrDefault(x => x.EAN.Equals(pEan.ToString()));//FirstOrDefault(x => x.EAN == pEan);
                 if (Product == null)
                 {
                     return false;

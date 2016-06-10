@@ -12,7 +12,7 @@ namespace WEBAPI.Services.Services
         List<Product> GetProducts();
         Product GetProduct(long pProdEan);
         bool SaveProduct(Product pNewProduct);
-        bool UpdateProduct(long pProdEan,Product pUpdatedProduct);
+        bool UpdateProduct(string pProdEan,Product pUpdatedProduct);
         bool DeleteProduct(long pEan);
     }
 }
