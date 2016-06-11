@@ -45,6 +45,16 @@ namespace WEBAPI.Services.Services
                     tmpInSale.Quantity = pProdsQty.ToArray()[i];
                     tmpInSale.SaleID = pSaleId;
                     db.ProductInSales.Add(tmpInSale);
+
+                    string tmpEan = pProdsEan.ToArray()[i];
+                    int tmpQty = pProdsQty.ToArray()[i];
+
+                    var product = db.Products.FirstOrDefault(p => p.EAN == tmpEan);
+                    if (product != null)
+                    {
+                        product.Quantity -= tmpQty;
+                    }
+
                     i++;
                 }
 
