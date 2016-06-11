@@ -20,6 +20,8 @@ namespace WEBAPI.Data
         public PospfEntities()
             : base("name=PospfEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

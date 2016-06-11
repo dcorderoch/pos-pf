@@ -9,11 +9,20 @@ namespace WEBAPI.Services.Services
 {
     public class SaleService : ISaleService
     {
-        private PospfEntities db = new PospfEntities();
-
+        /// <summary>
+        /// This is the EF context database mapper
+        /// </summary>
+        private PospfEntities _db = new PospfEntities();
+        /// <summary>
+        /// This method records a sale in the database
+        /// </summary>
+        /// <param name="pCustomerId"></param>
+        /// <param name="pCashierId"></param>
+        /// <param name="pOfficeId"></param>
+        /// <returns></returns>
         public long StartSale(string pCustomerId, int pCashierId, byte pOfficeId)
         {
-            Sale theNewSale = new Sale
+            var theNewSale = new Sale
             {
                 IDNumber = pCustomerId,
                 StaffID = pCashierId,
@@ -21,8 +30,8 @@ namespace WEBAPI.Services.Services
             };
             try
             {
-                db.Sales.Add(theNewSale);
-                db.SaveChanges();
+                _db.Sales.Add(theNewSale);
+                _db.SaveChanges();
 
                 return theNewSale.SaleID;
             }
@@ -31,25 +40,34 @@ namespace WEBAPI.Services.Services
                 return -1;
             }
         }
-
+        /// <summary>
+        /// This method updates a sale end date
+        /// and saves all products that were sold in the appropriate table
+        /// </summary>
+        /// <param name="pSaleId"></param>
+        /// <param name="pProdsEan"></param>
+        /// <param name="pProdsQty"></param>
+        /// <returns></returns>
         public bool EndSale(long pSaleId, List<string> pProdsEan, List<int> pProdsQty)
         {
             try
             {
-                int upperLimit = pProdsEan.Count;
-                int i = 0;
+                var upperLimit = pProdsEan.Count;
+                var i = 0;
                 while (i < upperLimit)
                 {
-                    ProductInSale tmpInSale = new ProductInSale();
-                    tmpInSale.EAN = pProdsEan.ToArray()[i];
-                    tmpInSale.Quantity = pProdsQty.ToArray()[i];
-                    tmpInSale.SaleID = pSaleId;
-                    db.ProductInSales.Add(tmpInSale);
+                    var tmpInSale = new ProductInSale
+                    {
+                        EAN = pProdsEan.ToArray()[i],
+                        Quantity = pProdsQty.ToArray()[i],
+                        SaleID = pSaleId
+                    };
+                    _db.ProductInSales.Add(tmpInSale);
 
-                    string tmpEan = pProdsEan.ToArray()[i];
-                    int tmpQty = pProdsQty.ToArray()[i];
+                    var tmpEan = pProdsEan.ToArray()[i];
+                    var tmpQty = pProdsQty.ToArray()[i];
 
-                    var product = db.Products.FirstOrDefault(p => p.EAN == tmpEan);
+                    var product = _db.Products.FirstOrDefault(p => p.EAN == tmpEan);
                     if (product != null)
                     {
                         product.Quantity -= tmpQty;
@@ -58,11 +76,14 @@ namespace WEBAPI.Services.Services
                     i++;
                 }
 
-                var thisSale = db.Sales.FirstOrDefault(x => x.SaleID == pSaleId);
-                thisSale.EOF = DateTime.Now;
-                db.Entry(thisSale).State = System.Data.Entity.EntityState.Modified;
+                var thisSale = _db.Sales.FirstOrDefault(x => x.SaleID == pSaleId);
+                if (thisSale != null)
+                {
+                    thisSale.EOF = DateTime.Now;
+                    _db.Entry(thisSale).State = System.Data.Entity.EntityState.Modified;
+                }
 
-                db.SaveChanges();
+                _db.SaveChanges();
                 return true;
             }
             catch (Exception)

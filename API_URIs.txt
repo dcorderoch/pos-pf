@@ -11,7 +11,7 @@ Application sends
 Receives
 {"SaleID":5}
 
-
+/************************************************************/
 # POST to this when the products are paid for to end the sale
 http://localhost:12262/Api/Sale/End
 Application sends
@@ -23,3 +23,66 @@ Application sends
 
 Receives
 {"StatusCode":1}
+
+/************************************************************/
+# POST to this to get Product Information
+http://localhost:12262/Api/Product/Get
+Application sends
+{
+"EAN":"7441001615610"
+}
+
+Receives
+{
+"EAN":"7441001615610",
+"Name":"Caja Leche 1L",
+"Price":575,
+"Quantity":10,
+"DailyAverageSales":2,
+"DaysBtwnShipment":2,
+"ProductInSales":[]
+}
+
+/************************************************************/
+# POST to this to Create a New Product
+http://localhost:12262/Api/Product/Create
+Application sends
+{
+"EAN":"7453015132311",
+"Name":"5000 u. Grapas Studmark",
+"Price":550,
+"Quantity":15,
+"DailyAverageSales":2,
+"DaysBtwnShipment":2
+}
+
+Receives
+{"StatusCode":1}
+
+/************************************************************/
+# POST to this to Update Product Information
+http://localhost:12262/Api/Product/Update
+Application sends
+{
+"EAN":"7453015132311",
+"Name":"5000 u. Grapas Studmark",
+"Price":550,
+"Quantity":20,
+"DailyAverageSales":2,
+"DaysBtwnShipment":21
+}
+
+Receives
+{"StatusCode":1}
+
+/************************************************************/
+# POST to this to Delete a Product (can't delete a product that's been sold)
+http://localhost:12262/Api/Product/Delete
+Application sends
+{
+"EAN":"7453015132311"
+}
+
+Receives
+{"StatusCode":1}
+
