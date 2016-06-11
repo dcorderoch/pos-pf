@@ -101,6 +101,8 @@
     </Compile>
     <Compile Include="Models\ProdByEan.cs" />
     <Compile Include="Models\ReturnStatus.cs" />
+    <Compile Include="Models\SaleEndData.cs" />
+    <Compile Include="Models\SaleEndProd.cs" />
     <Compile Include="Models\SaleIdJson.cs" />
     <Compile Include="Models\StartSaleData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

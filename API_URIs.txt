@@ -1,0 +1,25 @@
+# POST to this when the first product is added to make a new sale
+# if customer pays with cash, use "CustomerId":"000000000"
+http://localhost:12262/Api/Sale/Make
+Application sends
+{
+"CustomerId":"115020180",
+"CashierId":"1001",
+"OfficeId":"2"
+}
+
+Receives
+{"SaleID":5}
+
+
+# POST to this when the products are paid for to end the sale
+http://localhost:12262/Api/Sale/End
+Application sends
+{
+"SaleID":"5",
+"Products":[{"EAN":"7441001615610","Qty":"3"},
+            {"EAN":"7441003400207","Qty":"2"}]
+}
+
+Receives
+{"StatusCode":1}

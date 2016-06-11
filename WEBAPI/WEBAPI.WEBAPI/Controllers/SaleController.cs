@@ -21,5 +21,18 @@ namespace WEBAPI.WEBAPI.Controllers
             var retVal = new SaleIdJson() {SaleID = saleService.StartSale(pSaleData.CustomerId,pSaleData.CashierId,pSaleData.OfficeId)};
             return Json(retVal);
         }
+
+        [HttpPost]
+        public JsonResult<ReturnStatus> End(SaleEndData pSaleEndData)
+        {
+            var retVal = new ReturnStatus();
+
+            List<string> listOfEan = pSaleEndData.Products.Select(product => product.EAN).ToList();
+            List<int> listOfQtys = pSaleEndData.Products.Select(product => product.Qty).ToList();
+
+            retVal.StatusCode = saleService.EndSale(pSaleEndData.SaleID, listOfEan, listOfQtys) ? 1 : 0;
+
+            return Json(retVal);
+        }
     }
 }

@@ -5,8 +5,9 @@ using System.Web;
 
 namespace WEBAPI.WEBAPI.Models
 {
-    public class ReturnStatus
+    public class SaleEndProd
     {
-        public long StatusCode { get; set; }
+        public string EAN { get; set; }
+        public int Qty { get; set; }
     }
 }

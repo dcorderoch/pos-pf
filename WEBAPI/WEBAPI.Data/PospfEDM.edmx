@@ -526,6 +526,9 @@
                   <ScalarProperty Name="IDNumber" ParameterName="CustomerID" />
                   <ResultBinding Name="SaleID" ColumnName="ThisSaleID" />
                 </InsertFunction>
+                <UpdateFunction FunctionName="PospfModel.Store.ENDSALE">
+                  <ScalarProperty Name="SaleID" ParameterName="SaleID" Version="Current" />
+                </UpdateFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
