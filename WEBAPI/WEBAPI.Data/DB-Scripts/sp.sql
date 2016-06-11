@@ -33,6 +33,7 @@ BEGIN
     UPDATE Staff_Log
     SET ShiftEnd = CURRENT_TIMESTAMP, 
         MoneyOnShiftEnd = @MoneyOnEnd
+    WHERE LogID = @StaffLogID
 END
 GO
 -- STORED PROCEDURE TO START STAFF SHIFT

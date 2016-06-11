@@ -526,6 +526,9 @@
                   <ScalarProperty Name="IDNumber" ParameterName="CustomerID" />
                   <ResultBinding Name="SaleID" ColumnName="ThisSaleID" />
                 </InsertFunction>
+                <UpdateFunction FunctionName="PospfModel.Store.ENDSALE">
+                  <ScalarProperty Name="SaleID" ParameterName="SaleID" Version="Current" />
+                </UpdateFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -551,6 +554,20 @@
                 <ScalarProperty Name="MoneyOnShiftStart" ColumnName="MoneyOnShiftStart" />
                 <ScalarProperty Name="MoneyOnShiftEnd" ColumnName="MoneyOnShiftEnd" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PospfModel.Staff_Log">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PospfModel.Store.STARTSHIFT">
+                  <ScalarProperty Name="MoneyOnShiftStart" ParameterName="MoneyOnShiftStart" />
+                  <ScalarProperty Name="Register" ParameterName="Register" />
+                  <ScalarProperty Name="StaffID" ParameterName="StaffID" />
+                  <ResultBinding Name="LogID" ColumnName="LogID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="PospfModel.Store.ENDSHIFT" >
+                  <ScalarProperty Name="MoneyOnShiftEnd" ParameterName="MoneyOnEnd" Version="Current" />
+                  <ScalarProperty Name="LogID" ParameterName="StaffLogID" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">

@@ -10,6 +10,6 @@ namespace WEBAPI.Services.Services
     public interface ISaleService
     {
         long StartSale(string pCustomerId, int pCashierId, byte pOfficeId);
-        bool EndSale(long pSaleId);
+        bool EndSale(long pSaleId,List<string> pProdsEan,List<int> pProdsQty);
     }
 }

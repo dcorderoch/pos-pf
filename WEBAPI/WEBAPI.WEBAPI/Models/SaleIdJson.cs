@@ -7,6 +7,6 @@ namespace WEBAPI.WEBAPI.Models
 {
     public class SaleIdJson
     {
-        public long SaleID { get; set; }
+        public long SaleId { get; set; }
     }
 }

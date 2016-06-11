@@ -5,8 +5,8 @@ using System.Web;
 
 namespace WEBAPI.WEBAPI.Models
 {
-    public class ReturnStatus
+    public class LongIdResult
     {
-        public long StatusCode { get; set; }
+        public long LogID { get; set; }
     }
 }
