@@ -86,3 +86,28 @@ Application sends
 Receives
 {"StatusCode":1}
 
+/************************************************************/
+# POST to this to insert staff member shift log information to DB
+http://localhost:12262/Api/StaffShift/Start
+Application sends
+Start
+{
+"StaffId":1001,
+"Regster":7,
+"MoneyOnStart":25000
+}
+
+Receives
+{"LogID":5}
+
+/************************************************************/
+# POST to this to update staff member shift log information
+http://localhost:12262/Api/StaffShift/End
+Application sends
+{
+"StaffLogId":5,
+"MoneyOnEnd":150000
+}
+
+Receives
+{"StatusCode":1}

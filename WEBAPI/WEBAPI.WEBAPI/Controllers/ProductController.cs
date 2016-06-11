@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Results;
 using WEBAPI.Data;
@@ -20,10 +15,6 @@ namespace WEBAPI.WEBAPI.Controllers
     public class ProductController : ApiController
     {
         /// <summary>
-        /// This is the most direct programming-DB mapping service
-        /// </summary>
-        private IProductService _productService = new ProductService();
-        /// <summary>
         /// This method returns all Product Information
         /// </summary>
         /// <param name="pEan"></param>
@@ -31,7 +22,8 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpPost]
         public JsonResult<Product> Get(ProdByEan pEan)
         {
-            return Json(_productService.GetProduct(pEan.EAN));
+            IProductService productService = new ProductService();
+            return Json(productService.GetProduct(pEan.EAN));
         }
         /// <summary>
         /// This Method returns all information of all Products in the Database
@@ -40,7 +32,8 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpGet]
         public JsonResult<List<Product>> GetAll()
         {
-            return Json(_productService.GetProducts());
+            IProductService productService = new ProductService();
+            return Json(productService.GetProducts());
         }
         /// <summary>
         /// This Method receives the necessary information of a Product
@@ -51,7 +44,8 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpPost]
         public JsonResult<ReturnStatus> Create(Product pNewProduct)
         {
-            var retVal = new ReturnStatus() {StatusCode = _productService.SaveProduct(pNewProduct)?1:0};
+            IProductService productService = new ProductService();
+            var retVal = new ReturnStatus() {StatusCode = productService.SaveProduct(pNewProduct)?1:0};
             return Json(retVal);
         }
         /// <summary>
@@ -63,7 +57,8 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpPost]
         public JsonResult<ReturnStatus> Update(Product pUpdatedProduct)
         {
-            var retVal = new ReturnStatus() { StatusCode = _productService.UpdateProduct(pUpdatedProduct.EAN,pUpdatedProduct) ? 1 : 0 };
+            IProductService productService = new ProductService();
+            var retVal = new ReturnStatus() { StatusCode = productService.UpdateProduct(pUpdatedProduct.EAN,pUpdatedProduct) ? 1 : 0 };
             return Json(retVal);
         }
         /// <summary>
@@ -74,7 +69,8 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpPost]
         public JsonResult<ReturnStatus> Delete(ProdByEan pEan)
         {
-            var retVal = new ReturnStatus() { StatusCode = _productService.DeleteProduct(pEan.EAN) ? 1 : 0 };
+            IProductService productService = new ProductService();
+            var retVal = new ReturnStatus() { StatusCode = productService.DeleteProduct(pEan.EAN) ? 1 : 0 };
             return Json(retVal);
         }
     }

@@ -1,26 +1,35 @@
+DELETE FROM dbo.ProductInSale;
+DELETE FROM dbo.Sale;
+DELETE FROM dbo.Staff_Log;
+DELETE FROM dbo.Product;
+DELETE FROM dbo.Customer;
+DELETE FROM dbo.Staff;
+DELETE FROM dbo.BranchOffice;
+DELETE FROM dbo.Supplier;
+
 -- Product in Sale
 IF OBJECT_ID (N'dbo.ProductInSale', N'U') IS NOT NULL
-DROP TABLE dbo.ProductInSale ;
+DROP TABLE dbo.ProductInSale;
 
 -- Sale
 IF OBJECT_ID (N'dbo.Sale', N'U') IS NOT NULL
-DROP TABLE dbo.Sale ;
+DROP TABLE dbo.Sale;
 
 -- Staff Log
 IF OBJECT_ID (N'dbo.Staff_Log', N'U') IS NOT NULL
-DROP TABLE dbo.Staff_Log ;
+DROP TABLE dbo.Staff_Log;
 
 -- Product
 IF OBJECT_ID (N'dbo.Product', N'U') IS NOT NULL
-DROP TABLE dbo.Product ;
+DROP TABLE dbo.Product;
 
 --Customer
 IF OBJECT_ID (N'dbo.Customer', N'U') IS NOT NULL
-DROP TABLE dbo.Customer ;
+DROP TABLE dbo.Customer;
 
 -- Staff
 IF OBJECT_ID (N'dbo.Staff', N'U') IS NOT NULL
-DROP TABLE dbo.Staff ;
+DROP TABLE dbo.Staff;
 
 -- Branch Office
 IF OBJECT_ID (N'dbo.BranchOffice', N'U') IS NOT NULL

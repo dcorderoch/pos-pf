@@ -15,10 +15,6 @@ namespace WEBAPI.WEBAPI.Controllers
     public class SaleController : ApiController
     {
         /// <summary>
-        /// This is the most direct programming-DB mapping service
-        /// </summary>
-        private ISaleService _saleService = new SaleService();
-        /// <summary>
         /// This is the method that starts recording the information of a sale
         /// </summary>
         /// <param name="pSaleData"></param>
@@ -26,9 +22,10 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpPost]
         public JsonResult<SaleIdJson> Make(StartSaleData pSaleData)
         {
+            ISaleService saleService = new SaleService();
             var retVal = new SaleIdJson()
             {
-                SaleID = _saleService.StartSale(pSaleData.CustomerId,
+                SaleId = saleService.StartSale(pSaleData.CustomerId,
                                                 pSaleData.CashierId,
                                                 pSaleData.OfficeId)
             };
@@ -44,6 +41,7 @@ namespace WEBAPI.WEBAPI.Controllers
         [HttpPost]
         public JsonResult<ReturnStatus> End(SaleEndData pSaleEndData)
         {
+            ISaleService saleService = new SaleService();
             var retVal = new ReturnStatus();
 
             List<string> listOfEan = pSaleEndData.
@@ -52,7 +50,7 @@ namespace WEBAPI.WEBAPI.Controllers
             List<int> listOfQtys = pSaleEndData.
                 Products.Select(product => product.Qty).ToList();
 
-            retVal.StatusCode = _saleService.
+            retVal.StatusCode = saleService.
                 EndSale(pSaleEndData.SaleID, listOfEan, listOfQtys) ? 1 : 0;
 
             return Json(retVal);

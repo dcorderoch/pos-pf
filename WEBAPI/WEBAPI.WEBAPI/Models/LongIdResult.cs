@@ -5,8 +5,8 @@ using System.Web;
 
 namespace WEBAPI.WEBAPI.Models
 {
-    public class SaleIdJson
+    public class LongIdResult
     {
-        public long SaleId { get; set; }
+        public long LogID { get; set; }
     }
 }
