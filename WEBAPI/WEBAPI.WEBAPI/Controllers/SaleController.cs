@@ -39,10 +39,10 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <param name="pSaleEndData"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<ReturnStatus> End(SaleEndData pSaleEndData)
+        public JsonResult<LongReturnStatus> End(SaleEndData pSaleEndData)
         {
             ISaleService saleService = new SaleService();
-            var retVal = new ReturnStatus();
+            var retVal = new LongReturnStatus();
 
             List<string> listOfEan = pSaleEndData.
                 Products.Select(product => product.EAN).ToList();

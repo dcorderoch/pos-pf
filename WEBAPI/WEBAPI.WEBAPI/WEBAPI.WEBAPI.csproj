@@ -96,17 +96,20 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StaffShiftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IntReturnStatus.cs" />
     <Compile Include="Models\LongIdResult.cs" />
     <Compile Include="Models\ProdByEan.cs" />
-    <Compile Include="Models\ReturnStatus.cs" />
+    <Compile Include="Models\LongReturnStatus.cs" />
     <Compile Include="Models\SaleEndData.cs" />
     <Compile Include="Models\SaleEndProd.cs" />
     <Compile Include="Models\SaleIdJson.cs" />
     <Compile Include="Models\ShiftEndInfo.cs" />
+    <Compile Include="Models\StaffById.cs" />
     <Compile Include="Models\StaffShiftInfo.cs" />
     <Compile Include="Models\StartSaleData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

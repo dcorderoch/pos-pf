@@ -31,11 +31,11 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <param name="pShiftEndInfo"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<ReturnStatus> End(ShiftEndInfo pShiftEndInfo)
+        public JsonResult<LongReturnStatus> End(ShiftEndInfo pShiftEndInfo)
         {
             IStaffShiftService staffShiftService = new StaffShiftService();
             return
-                Json(new ReturnStatus
+                Json(new LongReturnStatus
                 {
                     StatusCode = staffShiftService.EndShift(pShiftEndInfo.StaffLogId, pShiftEndInfo.MoneyOnEnd)?1:0
                 });

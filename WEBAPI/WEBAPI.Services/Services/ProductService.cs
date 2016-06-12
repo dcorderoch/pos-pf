@@ -8,15 +8,12 @@ namespace WEBAPI.Services.Services
     public class ProductService : IProductService
     {
         /// <summary>
-        /// This is the EF context database mapper
-        /// </summary>
-        private PospfEntities db = new PospfEntities();
-        /// <summary>
         /// This method returns all products in the database
         /// </summary>
         /// <returns></returns>
         public List<Product> GetProducts()
         {
+            var db = new PospfEntities();
             return db.Products.ToList();
         }
         /// <summary>
@@ -26,6 +23,7 @@ namespace WEBAPI.Services.Services
         /// <returns></returns>
         public Product GetProduct(string pProdEan)
         {
+            var db = new PospfEntities();
             return db.Products.FirstOrDefault(x => x.EAN == pProdEan);
         }
         /// <summary>
@@ -35,6 +33,7 @@ namespace WEBAPI.Services.Services
         /// <returns></returns>
         public bool SaveProduct(Product pNewProduct)
         {
+            var db = new PospfEntities();
             try
             {
                 db.Products.Add(pNewProduct);
@@ -54,6 +53,7 @@ namespace WEBAPI.Services.Services
         /// <returns></returns>
         public bool UpdateProduct(string pProdEan,Product pUpdatedProduct)
         {
+            var db = new PospfEntities();
             try
             {
                 db.Entry(pUpdatedProduct).State = System.Data.Entity.EntityState.Modified;
@@ -72,6 +72,7 @@ namespace WEBAPI.Services.Services
         /// <returns></returns>
         public bool DeleteProduct(string pEan)
         {
+            var db = new PospfEntities();
             try
             {
                 var product = db.Products.FirstOrDefault(x => x.EAN.Equals(pEan));

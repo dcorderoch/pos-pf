@@ -42,10 +42,10 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <param name="pNewProduct"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<ReturnStatus> Create(Product pNewProduct)
+        public JsonResult<LongReturnStatus> Create(Product pNewProduct)
         {
             IProductService productService = new ProductService();
-            var retVal = new ReturnStatus() {StatusCode = productService.SaveProduct(pNewProduct)?1:0};
+            var retVal = new LongReturnStatus() {StatusCode = productService.SaveProduct(pNewProduct)?1:0};
             return Json(retVal);
         }
         /// <summary>
@@ -55,10 +55,10 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <param name="pUpdatedProduct"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<ReturnStatus> Update(Product pUpdatedProduct)
+        public JsonResult<LongReturnStatus> Update(Product pUpdatedProduct)
         {
             IProductService productService = new ProductService();
-            var retVal = new ReturnStatus() { StatusCode = productService.UpdateProduct(pUpdatedProduct.EAN,pUpdatedProduct) ? 1 : 0 };
+            var retVal = new LongReturnStatus() { StatusCode = productService.UpdateProduct(pUpdatedProduct.EAN,pUpdatedProduct) ? 1 : 0 };
             return Json(retVal);
         }
         /// <summary>
@@ -67,10 +67,10 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <param name="pEan"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<ReturnStatus> Delete(ProdByEan pEan)
+        public JsonResult<LongReturnStatus> Delete(ProdByEan pEan)
         {
             IProductService productService = new ProductService();
-            var retVal = new ReturnStatus() { StatusCode = productService.DeleteProduct(pEan.EAN) ? 1 : 0 };
+            var retVal = new LongReturnStatus() { StatusCode = productService.DeleteProduct(pEan.EAN) ? 1 : 0 };
             return Json(retVal);
         }
     }

@@ -111,3 +111,44 @@ Application sends
 
 Receives
 {"StatusCode":1}
+
+
+/************************************************************/
+# POST to this to Create a New Member of Staff
+http://localhost:12262/Api/Staff/Create
+Application sends
+{
+"BOfficeID":"2",
+"Name":"María",
+"LastName1":"Casttro",
+"LastName2":"Arias"
+}
+
+Receives
+{"StaffID":1009}
+
+/************************************************************/
+# POST to this to Update a Member of Staff
+http://localhost:12262/Api/Staff/Update
+Application sends
+{
+"StaffID":"1009",
+"BOfficeID":"2",
+"Name":"María",
+"LastName1":"Castro",
+"LastName2":"Arias"
+}
+
+Receives
+{"StatusCode":1}
+
+/************************************************************/
+# POST to this to Delete a Member of Staff
+http://localhost:12262/Api/Staff/Delete
+Application sends
+{
+"StaffID":"1009"
+}
+
+Receives
+{"StatusCode":1}

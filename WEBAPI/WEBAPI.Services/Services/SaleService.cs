@@ -10,10 +10,6 @@ namespace WEBAPI.Services.Services
     public class SaleService : ISaleService
     {
         /// <summary>
-        /// This is the EF context database mapper
-        /// </summary>
-        private PospfEntities _db = new PospfEntities();
-        /// <summary>
         /// This method records a sale in the database
         /// </summary>
         /// <param name="pCustomerId"></param>
@@ -22,6 +18,7 @@ namespace WEBAPI.Services.Services
         /// <returns></returns>
         public long StartSale(string pCustomerId, int pCashierId, byte pOfficeId)
         {
+            var db = new PospfEntities();
             var theNewSale = new Sale
             {
                 IDNumber = pCustomerId,
@@ -30,8 +27,8 @@ namespace WEBAPI.Services.Services
             };
             try
             {
-                _db.Sales.Add(theNewSale);
-                _db.SaveChanges();
+                db.Sales.Add(theNewSale);
+                db.SaveChanges();
 
                 return theNewSale.SaleID;
             }
@@ -50,6 +47,7 @@ namespace WEBAPI.Services.Services
         /// <returns></returns>
         public bool EndSale(long pSaleId, List<string> pProdsEan, List<int> pProdsQty)
         {
+            var db = new PospfEntities();
             try
             {
                 var upperLimit = pProdsEan.Count;
@@ -62,12 +60,12 @@ namespace WEBAPI.Services.Services
                         Quantity = pProdsQty.ToArray()[i],
                         SaleID = pSaleId
                     };
-                    _db.ProductInSales.Add(tmpInSale);
+                    db.ProductInSales.Add(tmpInSale);
 
                     var tmpEan = pProdsEan.ToArray()[i];
                     var tmpQty = pProdsQty.ToArray()[i];
 
-                    var product = _db.Products.FirstOrDefault(p => p.EAN == tmpEan);
+                    var product = db.Products.FirstOrDefault(p => p.EAN == tmpEan);
                     if (product != null)
                     {
                         product.Quantity -= tmpQty;
@@ -76,14 +74,14 @@ namespace WEBAPI.Services.Services
                     i++;
                 }
 
-                var thisSale = _db.Sales.FirstOrDefault(x => x.SaleID == pSaleId);
+                var thisSale = db.Sales.FirstOrDefault(x => x.SaleID == pSaleId);
                 if (thisSale != null)
                 {
                     thisSale.EOF = DateTime.Now;
-                    _db.Entry(thisSale).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(thisSale).State = System.Data.Entity.EntityState.Modified;
                 }
 
-                _db.SaveChanges();
+                db.SaveChanges();
                 return true;
             }
             catch (Exception)
