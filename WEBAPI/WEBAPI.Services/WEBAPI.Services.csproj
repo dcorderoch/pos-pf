@@ -91,10 +91,12 @@
     <Compile Include="Services\ISaleService.cs" />
     <Compile Include="Services\IStaffService.cs" />
     <Compile Include="Services\IStaffShiftService.cs" />
+    <Compile Include="Services\ISupplierService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SaleService.cs" />
     <Compile Include="Services\StaffService.cs" />
     <Compile Include="Services\StaffShiftService.cs" />
+    <Compile Include="Services\SupplierService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WEBAPI.Data\WEBAPI.Data.csproj">

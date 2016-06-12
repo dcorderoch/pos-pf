@@ -98,9 +98,11 @@
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StaffShiftController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ByteReturnStatus.cs" />
     <Compile Include="Models\IntReturnStatus.cs" />
     <Compile Include="Models\LongIdResult.cs" />
     <Compile Include="Models\ProdByEan.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Models\StaffById.cs" />
     <Compile Include="Models\StaffShiftInfo.cs" />
     <Compile Include="Models\StartSaleData.cs" />
+    <Compile Include="Models\SupplierById.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

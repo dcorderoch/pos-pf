@@ -1,3 +1,5 @@
+/************************************************************/
+/************************************************************/
 # POST to this when the first product is added to make a new sale
 # if customer pays with cash, use "CustomerId":"000000000"
 http://localhost:12262/Api/Sale/Make
@@ -30,24 +32,6 @@ Receives
 }
 
 /************************************************************/
-# POST to this to get Product Information
-http://localhost:12262/Api/Product/Get
-Application sends
-{
-"EAN":"7441001615610"
-}
-
-Receives
-{
-"EAN":"7441001615610",
-"Name":"Caja Leche 1L",
-"Price":575,
-"Quantity":10,
-"DailyAverageSales":2,
-"DaysBtwnShipment":2,
-"ProductInSales":[]
-}
-
 /************************************************************/
 # POST to this to Create a New Product
 http://localhost:12262/Api/Product/Create
@@ -64,6 +48,25 @@ Application sends
 Receives
 {
 "StatusCode":1
+}
+
+/************************************************************/
+# POST to this to get Product Information
+http://localhost:12262/Api/Product/Get
+Application sends
+{
+"EAN":"7441001615610"
+}
+
+Receives
+{
+"EAN":"7441001615610",
+"Name":"Caja Leche 1L",
+"Price":575,
+"Quantity":10,
+"DailyAverageSales":2,
+"DaysBtwnShipment":2,
+"ProductInSales":[]
 }
 
 /************************************************************/
@@ -98,6 +101,7 @@ Receives
 }
 
 /************************************************************/
+/************************************************************/
 # POST to this to insert staff member shift log information to DB
 http://localhost:12262/Api/StaffShift/Start
 Application sends
@@ -128,6 +132,7 @@ Receives
 }
 
 /************************************************************/
+/************************************************************/
 # POST to this to Create a New Member of Staff
 http://localhost:12262/Api/Staff/Create
 Application sends
@@ -141,6 +146,23 @@ Application sends
 Receives
 {
 "StaffID":1009
+}
+
+/************************************************************/
+# POST to this to Get a Member of Staff
+http://localhost:12262/Api/Staff/Get
+Application sends
+{
+"StaffID":1009
+}
+
+Receives
+{
+"StaffID":"1009",
+"BOfficeID":"2",
+"Name":"María",
+"LastName1":"Castro",
+"LastName2":"Arias"
 }
 
 /************************************************************/
@@ -166,6 +188,60 @@ http://localhost:12262/Api/Staff/Delete
 Application sends
 {
 "StaffID":"1009"
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New Supplier
+http://localhost:12262/Api/Supplier/Create
+Application sends
+Create
+{
+"Name":"PipaZa",
+"PhoneNumber":"+50626614956"
+}
+
+Receives
+{
+"SupplerID":4
+}
+
+/************************************************************/
+# POST to this to Get a Supplier
+http://localhost:12262/Api/Supplier/Get
+Application sends
+{
+"SupplerID":4
+}
+
+Receives
+{
+"SupplerID":4,
+"Name":"Pipasa",
+"PhoneNumber":"+50626614956"
+}
+
+/************************************************************/
+# POST to this to Update a Supplier
+http://localhost:12262/Api/Supplier/Update
+Application sends
+{
+"SupplerID":4,
+"Name":"Pipasa",
+"PhoneNumber":"+50626614956"
+}
+
+/************************************************************/
+# POST to this to Delete a Supplier
+http://localhost:12262/Api/Supplier/Delete
+Application sends
+{
+"SupplerID":4
 }
 
 Receives

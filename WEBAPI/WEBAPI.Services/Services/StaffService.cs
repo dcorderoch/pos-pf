@@ -8,18 +8,30 @@ namespace WEBAPI.Services.Services
 {
     public class StaffService : IStaffService
     {
+        /// <summary>
+        /// This method returns all Staff Members in the database
+        /// </summary>
+        /// <returns></returns>
         public List<Staff> GetStaffMembers()
         {
             var db = new PospfEntities();
             return db.Staffs.ToList();
         }
-
+        /// <summary>
+        /// This method returns all information of a single Staff Member
+        /// </summary>
+        /// <param name="pStaffId"></param>
+        /// <returns></returns>
         public Staff GetStaff(int pStaffId)
         {
             var db = new PospfEntities();
             return db.Staffs.FirstOrDefault(x => x.StaffID == pStaffId);
         }
-
+        /// <summary>
+        /// This method creates a new Staff Member in the Database
+        /// </summary>
+        /// <param name="pNewStaff"></param>
+        /// <returns></returns>
         public int SaveStaff(Staff pNewStaff)
         {
             var db = new PospfEntities();
@@ -35,7 +47,11 @@ namespace WEBAPI.Services.Services
                 return -1;
             }
         }
-
+        /// <summary>
+        /// This method updates information of a Staff Member in the database
+        /// </summary>
+        /// <param name="pUpdatedStaff"></param>
+        /// <returns></returns>
         public bool UpdateStaff(Staff pUpdatedStaff)
         {
             var db = new PospfEntities();
@@ -59,7 +75,11 @@ namespace WEBAPI.Services.Services
                 return false;
             }
         }
-
+        /// <summary>
+        /// This method deletes a product in the database
+        /// </summary>
+        /// <param name="pStaffId"></param>
+        /// <returns></returns>
         public bool DeleteStaff(int pStaffId)
         {
             var db = new PospfEntities();
