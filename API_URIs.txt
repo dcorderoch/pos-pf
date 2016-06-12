@@ -7,9 +7,10 @@ Application sends
 "CashierId":"1001",
 "OfficeId":"2"
 }
-
 Receives
-{"SaleID":5}
+{
+"SaleID":5
+}
 
 /************************************************************/
 # POST to this when the products are paid for to end the sale
@@ -17,12 +18,16 @@ http://localhost:12262/Api/Sale/End
 Application sends
 {
 "SaleID":"5",
-"Products":[{"EAN":"7441001615610","Qty":"3"},
-            {"EAN":"7441003400207","Qty":"2"}]
+"Products":[
+            {"EAN":"7441001615610","Qty":"3"},
+            {"EAN":"7441003400207","Qty":"2"}
+           ]
 }
 
 Receives
-{"StatusCode":1}
+{
+"StatusCode":1
+}
 
 /************************************************************/
 # POST to this to get Product Information
@@ -57,7 +62,9 @@ Application sends
 }
 
 Receives
-{"StatusCode":1}
+{
+"StatusCode":1
+}
 
 /************************************************************/
 # POST to this to Update Product Information
@@ -73,7 +80,9 @@ Application sends
 }
 
 Receives
-{"StatusCode":1}
+{
+"StatusCode":1
+}
 
 /************************************************************/
 # POST to this to Delete a Product (can't delete a product that's been sold)
@@ -84,7 +93,9 @@ Application sends
 }
 
 Receives
-{"StatusCode":1}
+{
+"StatusCode":1
+}
 
 /************************************************************/
 # POST to this to insert staff member shift log information to DB
@@ -98,7 +109,9 @@ Start
 }
 
 Receives
-{"LogID":5}
+{
+"LogID":5
+}
 
 /************************************************************/
 # POST to this to update staff member shift log information
@@ -110,8 +123,9 @@ Application sends
 }
 
 Receives
-{"StatusCode":1}
-
+{
+"StatusCode":1
+}
 
 /************************************************************/
 # POST to this to Create a New Member of Staff
@@ -125,7 +139,9 @@ Application sends
 }
 
 Receives
-{"StaffID":1009}
+{
+"StaffID":1009
+}
 
 /************************************************************/
 # POST to this to Update a Member of Staff
@@ -140,7 +156,9 @@ Application sends
 }
 
 Receives
-{"StatusCode":1}
+{
+"StatusCode":1
+}
 
 /************************************************************/
 # POST to this to Delete a Member of Staff
@@ -151,4 +169,6 @@ Application sends
 }
 
 Receives
-{"StatusCode":1}
+{
+"StatusCode":1
+}
