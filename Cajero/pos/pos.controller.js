@@ -23,6 +23,7 @@
         $rootScope.bill = {};
         //Variable para conocer el comienzo de la transaccion
         var firstProduct = true;
+        $scope.IdClient;
         
        /**
         *   Funcion para agregar un producto por el ean, tambien se revisa si es el primer producto agregado
@@ -52,8 +53,13 @@
         * LLama al api para avisar que la transaccion ha comenzado.
         */
         function startTransaction(){
-            
-            CashierService.StartTransaction()
+            console.log($scope.IdClient);
+            var dataSend={};
+            dataSend.CustomerId = $scope.IdClient;
+            dataSend.OfficeId ="2";
+            dataSend.CashierId = "1001";
+            console.log(dataSend);
+            CashierService.StartTransaction(dataSend)
                 .then(function(){
                     FlashService.Success('Transaccion ha comenzado');
                     

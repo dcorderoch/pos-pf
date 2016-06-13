@@ -32,7 +32,7 @@
     run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];  //cosas que se corren al comienzo del proyecto
     function run($rootScope, $location, $cookieStore, $http) {      //no hay que modificar esto
         // Mantener al usuario logeado cuando se refresca la pagina
-        $rootScope.url="http://mdphischel-dev.azurewebsites.net/";
+        $rootScope.url="http://localhost:12262/";
         $rootScope.globals = $cookieStore.get('globals') || {}; // Se mantiene el usuario
         if ($rootScope.globals.currentUser) {                            // se crean las cookies
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line

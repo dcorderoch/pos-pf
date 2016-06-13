@@ -20,10 +20,12 @@
        * Envia mensaje de comienzo de transaccion para el timestamp
        * 
        */
-        function StartTransaction() {
+        function StartTransaction(data) {
+            console.log(data);
             var response=$http({
                 method:"post",          //talvez al final no sea un post
-                url: $rootScope.url+"X"
+                url: $rootScope.url+"Api/Sale/Make",
+                data: data
             });
             return response;    
         }
