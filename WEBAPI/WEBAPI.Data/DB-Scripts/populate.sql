@@ -1,3 +1,6 @@
+-- Administrators
+INSERT INTO Staff(StaffID, BOfficeID, Name, LastName1, LastName2)
+VALUES (1, 1, 'Rodrigo', 'Jiménez', 'Conejo'), 
 --Product
 INSERT INTO Product(EAN, Name, Price, Quantity, DailyAverageSales, DaysbtwnShipment)
 VALUES (7441001615610, 'Caja Leche 1L', 575, 10, 2, 2), 
