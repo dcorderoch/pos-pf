@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<!-- define angular app -->
+<html ng-app="app">
+
+<head>
+      <meta charset="utf-8" />
+<style>
+    ul{
+        
+    }
+    p.text {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 1.2em; /* 14px/16=0.875em */
+    }    
+    
+    i {
+        font-size: 75%;
+    }
+    
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+    
+
+  /* Tooltip */
+  .test + .tooltip > .tooltip-inner {
+      background-color: #73AD21; 
+      color: #FFFFFF; 
+      border: 1px solid green; 
+      padding: 15px;
+      font-size: 20px;
+  }
+  /* Tooltip on top */
+  .test + .tooltip.top > .tooltip-arrow {
+      border-top: 5px solid green;
+  }
+  /* Tooltip on bottom */
+  .test + .tooltip.bottom > .tooltip-arrow {
+      border-bottom: 5px solid blue;
+  }
+  /* Tooltip on left */
+  .test + .tooltip.left > .tooltip-arrow {
+      border-left: 5px solid red;
+  }
+  /* Tooltip on right */
+  .test + .tooltip.right > .tooltip-arrow {
+      border-right: 5px solid black;
+  }
+
+    
+</style>
+    
+  <!-- STYLES Boostrap-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <!--Font Awesome for icons -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.css" />
+  
+    
+    
+    <title>Dr Phischel</title>
+
+</head>
+        
+<!-- define angular controller -->
+<body>
+      <!-- angular templating -->
+		<!-- this is where content will be injected -->
+        
+        <div class="jumbotron">
+            <div class="container">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+
+                    <!--Adentro de ng-view se muestra la vista determinada por el routeo -->
+                    <div ng-view></div>
+            
+        </div>
+    </div>
+    </div>
+     <div class="credits text-center">
+        <footer class="text-center">
+            <p> © 2016  Dr Phischel </p>
+        </footer>
+    </div>
+  
+      <!-- SCRIPTS -->
+    <!--Angular and angular modules -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.4.0/angular-cookies.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    
+    <!--Jquery, various purposes  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    
+    
+    <!--Carousel -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+    <!--SCRIPTS DE LA APP-->
+    <!--Servicios-->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="app-services/admin.service.js"></script>
+    <script type="text/javascript" src="app-services/authentication.service.js"></script>
+    <script type="text/javascript" src="app-services/branchOffice.service.js"></script>    
+    <script type="text/javascript" src="app-services/client.service.js"></script> 
+    <script type="text/javascript" src="app-services/employee.service.js"></script>
+    <script type="text/javascript" src="app-services/product.service.js"></script>
+    <script type="text/javascript" src="app-services/provider.service.js"></script>
+    <script type="text/javascript" src="app-services/flash.service.js"></script>
+    <script type="text/javascript" src="app-services/report.service.js"></script>
+
+    
+    <!--Controladores    -->
+    <script type="text/javascript" src="admin/admin.controller.js"></script>
+    <script type="text/javascript" src="home/home.controller.js"></script>
+    <script type="text/javascript" src="login/login.controller.js"></script>
+    <script type="text/javascript" src="branchOffice/branchOffice.controller.js"></script>
+    <script type="text/javascript" src="client/client.controller.js"></script>
+    <script type="text/javascript" src="employee/employee.controller.js"></script>
+    <script type="text/javascript" src="product/product.controller.js"></script>
+    <script type="text/javascript" src="provider/provider.controller.js"></script>
+
+</body>
+
+</html>
