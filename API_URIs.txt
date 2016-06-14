@@ -1,4 +1,4 @@
-/************************************************************/
+﻿/************************************************************/
 /************************************************************/
 # POST to this when the first product is added to make a new sale
 # if customer pays with cash, use "CustomerId":"000000000"
@@ -242,6 +242,134 @@ http://localhost:12262/Api/Supplier/Delete
 Application sends
 {
 "SupplerID":4
+}
+
+Receives
+{
+"StatusCode":1
+}
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New Customer
+http://localhost:12262/Api/Customer/Create
+Application sends
+{
+  "IDNumber": "" ,
+  "Name": "",
+  "LastName1": "",
+  "LastName2": ""
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to get Customer Information
+http://localhost:12262/Api/Customer/Get
+Application sends
+{
+"ÏDNumber":""
+}
+
+Receives
+{
+  "IDNumber": "" ,
+  "Name": "",
+  "LastName1": "",
+  "LastName2": ""
+}
+
+
+
+/************************************************************/
+# POST to this to Update Customer Information
+http://localhost:12262/Api/Customer/Update
+Application sends
+{
+  "IDNumber": "" ,
+  "Name": "",
+  "LastName1": "",
+  "LastName2": ""
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to Delete a Customer (can't delete a product that's been sold)
+http://localhost:12262/Api/Customer/Delete
+Application sends
+{
+"ÏDNumber":""
+}
+
+Receives
+{
+"StatusCode":1
+}
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New BranchOffice
+http://localhost:12262/Api/BranchOffice/Create
+Application sends
+{
+  "OfficeID": ,
+  "Name": "",
+  "PhoneNumber": "",
+  "Location": ""
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to get BranchOffice Information
+http://localhost:12262/Api/BranchOffice/Get
+Application sends
+{
+"ÏDNumber":""
+}
+
+Receives
+{
+  "OfficeID": ,
+  "Name": "",
+  "PhoneNumber": "",
+  "Location": ""
+}
+
+
+
+/************************************************************/
+# POST to this to Update BranchOffice Information
+http://localhost:12262/Api/BranchOffice/Update
+Application sends
+{
+  "OfficeID": ,
+  "Name": "",
+  "PhoneNumber": "",
+  "Location": ""
+}
+
+
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to Delete a BranchOffice
+http://localhost:12262/Api/BranchOffice/Delete
+Application sends
+{
+"OfficeID": 
 }
 
 Receives
