@@ -30,5 +30,10 @@ namespace WEBAPI.Data
         public virtual ICollection<Sale> Sales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Staff> Staffs { get; set; }
+
+        public bool OfficeIDEquals(byte pIdNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
