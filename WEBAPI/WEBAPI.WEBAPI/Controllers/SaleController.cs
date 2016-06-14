@@ -39,16 +39,24 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <param name="pSaleEndData"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<LongReturnStatus> End(SaleEndData pSaleEndData)
+        public JsonResult<EndSaleStatus> End(SaleEndData pSaleEndData)
         {
             ISaleService saleService = new SaleService();
-            var retVal = new LongReturnStatus();
+            var retVal = new EndSaleStatus();
+
+            var productService = new ProductService();
+            var products = productService.GetProducts();
 
             List<string> listOfEan = pSaleEndData.
                 Products.Select(product => product.EAN).ToList();
 
             List<int> listOfQtys = pSaleEndData.
                 Products.Select(product => product.Qty).ToList();
+
+            bool willsendMessage =
+                products.Aggregate(false, (current, product) => current || (product.Quantity < product.DailyAverageSales*product.DaysBtwnShipment/2));
+
+            retVal.MSG = willsendMessage? "hay productos con bajo inventario" : "nada que reportar";
 
             retVal.StatusCode = saleService.
                 EndSale(pSaleEndData.SaleID, listOfEan, listOfQtys) ? 1 : 0;

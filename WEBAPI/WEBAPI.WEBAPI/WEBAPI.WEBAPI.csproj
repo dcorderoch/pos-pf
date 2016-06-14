@@ -111,6 +111,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ByteReturnStatus.cs" />
+    <Compile Include="Models\EndSaleStatus.cs" />
     <Compile Include="Models\IntReturnStatus.cs" />
     <Compile Include="Models\LongIdResult.cs" />
     <Compile Include="Models\ProdByEan.cs" />

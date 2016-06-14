@@ -19,16 +19,22 @@ Receives
 http://localhost:12262/Api/Sale/End
 Application sends
 {
-"SaleID":"5",
+"SaleID":"10",
 "Products":[
-            {"EAN":"7441001615610","Qty":"3"},
+            {"EAN":"7441036101225","Qty":"6"},
             {"EAN":"7441003400207","Qty":"2"}
            ]
 }
 
 Receives
 {
-"StatusCode":1
+"StatusCode":1,
+"MSG":"nada que reportar"
+}
+or
+{
+"StatusCode":1,
+"MSG":"hay productos con bajo inventario"
 }
 
 /************************************************************/
