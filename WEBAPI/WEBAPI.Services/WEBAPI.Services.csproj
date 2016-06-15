@@ -87,6 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BranchOfficeService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\IBranchOfficeService.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\ISaleService.cs" />
     <Compile Include="Services\IStaffService.cs" />

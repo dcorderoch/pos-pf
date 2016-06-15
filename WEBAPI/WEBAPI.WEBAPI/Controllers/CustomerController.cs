@@ -16,7 +16,7 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <summary>
         /// This method returns all Customer Information
         /// </summary>
-        /// <param name="pEan"></param>
+        /// <param name="pIdNumber"></param>
         /// <returns></returns>
         [HttpPost]
         public JsonResult<Customer> Get(CustById pIdNumber)
@@ -63,13 +63,13 @@ namespace WEBAPI.WEBAPI.Controllers
         /// <summary>
         /// This Method receives the EAN of a Customer and deletes it, if it exists in the database
         /// </summary>
-        /// <param name="pEan"></param>
+        /// <param name="pCustomerId"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<LongReturnStatus> Delete(CustById IdNumber)
+        public JsonResult<LongReturnStatus> Delete(CustById pCustomerId)
         {
             ICustomerService CustomerService = new CustomerService();
-            var retVal = new LongReturnStatus() { StatusCode = CustomerService.DeleteCustomer(IdNumber.IdNumber) ? 1 : 0 };
+            var retVal = new LongReturnStatus() { StatusCode = CustomerService.DeleteCustomer(pCustomerId.IdNumber) ? 1 : 0 };
             return Json(retVal);
         }
     }

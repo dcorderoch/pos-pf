@@ -102,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BranchOfficeController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
@@ -110,7 +112,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BOfyId.cs" />
     <Compile Include="Models\ByteReturnStatus.cs" />
+    <Compile Include="Models\CustById.cs" />
     <Compile Include="Models\EndSaleStatus.cs" />
     <Compile Include="Models\IntReturnStatus.cs" />
     <Compile Include="Models\LongIdResult.cs" />
