@@ -17,7 +17,11 @@
             <div class="panel panel-primary">
                 
                 <div class="panel-heading">
-                  <h3 class="panel-title">Factura</h3>
+
+                   <div class="panel-title pull-left">Factura </div>
+                   <div class="panel-title pull-right">Venta Número: {{sale}}</div>
+                   <div class="clearfix"></div>
+
                 </div>
                 <div class="panel-body" style="max-height:320px; overflow:auto;">
                     
@@ -31,8 +35,8 @@
                         </thead>
                         <tbody>           
                             <tr ng-repeat="product in listOfProducts track by $index">   
-                                <td>{{product.price | currency: "₡"}}</td>
-                                <td>{{product.name}}</td>
+                                <td>{{product.Price | currency: "₡"}}</td>
+                                <td>{{product.Name}}</td>
                                 <td>{{product.Quantity}}</td>
                             </tr>           <!-- estos son los valores de la tabla-->
                         </tbody>    

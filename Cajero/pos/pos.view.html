@@ -59,8 +59,8 @@
                         </thead>
                         <tbody>           
                             <tr ng-repeat="product in listOfProducts track by $index">   
-                                <td>{{product.price | currency: "₡"}}</td>
-                                <td>{{product.name}}</td>
+                                <td>{{product.Price | currency: "₡"}}</td>
+                                <td>{{product.Name}}</td>
                                 <td>{{product.Quantity}}</td>
                                 <td><button class="btn btn-default btn-xs pull-right" ng-click="increase(product)">
                                     <span class="glyphicon glyphicon-plus"></span>

@@ -23,7 +23,7 @@
         function Create(data) {
             var response=$http({
                 method:"post",
-                url: $rootScope.url+"X",
+                url: $rootScope.url+"Api/Product/Create",
                 data: data
             });
             return response;    
@@ -36,7 +36,7 @@
         function Read() {
             var response=$http({
                 method:"post",
-                url:$rootScope.url+"X"
+                url:$rootScope.url+"Api/Product/Get"
             });
             return response;    
         }
@@ -48,7 +48,7 @@
         function Delete(productID) {
             var response=$http({
                 method:"post",
-                url: $rootScope.url+"",
+                url: $rootScope.url+"Api/Product/Delete",
                 data: {IdNumber:productID}
             });
             return response;    
@@ -61,7 +61,7 @@
         function Update(data) {  
             var request = $http({
             method: "post",
-            url: $rootScope.url+"X",
+            url: $rootScope.url+"Api/Product/Update",
             data: data
         });
             return request;

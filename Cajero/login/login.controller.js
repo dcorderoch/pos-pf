@@ -34,20 +34,22 @@
                 .then(function(response){
 
                 if (response.data.UserId=== "0" ){
-                    FlashService.Error("Amdmin no existe");//errores
+                    FlashService.Error("Cajero no existe");//errores
                     $scope.dataLoading = false;
                 }
                 else{
                     $location.path('/');    
                     $rootScope.userId= response.data.UserId;
                     $rootScope.employeeName = response.data.Name;   //possibly needs a change
+                    $rootScope.cashierId = response.data.Id;
                     console.log($rootScope.userId);
                 }
                 },function(response){
                 console.log( $rootScope.adminName);
-                    FlashService.Error("Admin no existe");//errores
+                    FlashService.Error("Cajero no existe");//errores
                     $scope.dataLoading = false;
             });                   
         } 
     }
 }) ();
+

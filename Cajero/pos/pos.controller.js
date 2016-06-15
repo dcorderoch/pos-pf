@@ -23,8 +23,9 @@
         $rootScope.bill = {};
         //Variable para conocer el comienzo de la transaccion
         var firstProduct = true;
+
         $scope.IdClient;
-        
+        var saleId;
        /**
         *   Funcion para agregar un producto por el ean, tambien se revisa si es el primer producto agregado
         *   para el timestamp.  Al obtener info del EAN se retorna del api los detalles del producto.
@@ -35,15 +36,15 @@
                 startTransaction();
             }
             firstProduct=false;
-            
-            $scope.listOfProducts.push({name:"anfetaminas", price:123, Quantity:2 });
-            
-            CashierService.SendEAN(newP)    
+            var newProduct = {EAN:newP};
+
+            CashierService.SendEAN(newProduct)    
                 .then(function(product){
+
                     FlashService.Success('Producto agregado');  
                     var productTemp = product.data;
-                    productTemp.Quantitiy = 1;
                     $scope.listOfProducts.push(productTemp);
+
                 }, function(){
                     FlashService.Error('Error agregando producto');
             });
@@ -53,17 +54,19 @@
         * LLama al api para avisar que la transaccion ha comenzado.
         */
         function startTransaction(){
-            console.log($scope.IdClient);
-            var dataSend={};
-            dataSend.CustomerId = $scope.IdClient;
-            dataSend.OfficeId ="2";
-            dataSend.CashierId = "1001";
-            console.log(dataSend);
-            CashierService.StartTransaction(dataSend)
-                .then(function(){
+            var data={};
+            data.CustomerId = $scope.IdClient;
+            data.OfficeId ="2";
+            data.CashierId ="1001";
+
+            CashierService.StartTransaction(data)
+                .then(function(response){
                     FlashService.Success('Transaccion ha comenzado');
-                    
-                }, function(){
+                    saleId = response.data;
+
+                }, function(Error){
+                    FlashService.Error('No se ha podido realizar la transaccion');
+                    console.log(Error.data);
             });
         }
         
@@ -73,13 +76,17 @@
         */
         function savePurchase(id){
 
-            $rootScope.bill.id = id;
-            var lista = $scope.listOfProducts;
+            $rootScope.bill.saleId = saleId.SaleId;
+            $rootScope.bill.Products=$scope.listOfProducts;
 
-            saveReport(lista);
-          //  prepareList();
-    
-            CashierService.SavePurchase($rootScope.bill )
+            var sendObject={};
+            var products = prepareList();
+
+            sendObject.saleId = saleId.SaleId;
+            sendObject.Products = products;
+            console.log(sendObject);
+            console.log($rootScope.bill);
+            CashierService.SavePurchase( sendObject )
                 .then(function(){
                     FlashService.Success('Compra exitosa'); 
                    
@@ -91,17 +98,28 @@
                 $location.path('/purchase');
             });
         }
-        function saveReport(lista){
-            
-            $rootScope.bill.list= lista;
-        }
-        
+
+
+        /**
+         *  Prepara la lista que va a ser enviada al api
+         * Solo necesita la informacion basica
+         */       
         function prepareList(){
-            
-            angular.forEach($scope.listOfProducts, function(item, index){    
-                 delete item.name;
-                 delete item.price;
-             });
+
+            var saveList =[];
+            var i;
+            for (i=0; i<$scope.listOfProducts.length; i++){
+
+                var tempObject={};
+                tempObject.EAN = $scope.listOfProducts[i].EAN;
+                tempObject.Qty = $scope.listOfProducts[i].Quantity;
+                saveList.push(tempObject);
+            }
+            // angular.forEach($scope.listOfProducts, function(item, index){    
+            //      delete item.name;
+            //      delete item.price;
+            //  });
+            return saveList;
         };
         
        /**
@@ -123,7 +141,6 @@
             else  {
               product.Quantity--;
             }
-
         };
         
        /**
@@ -139,12 +156,11 @@
         */
         $scope.sumCalc = function() {
 
-          console.log($scope.listOfProducts);        
-           var sum = 0;
-            
+         
+           var sum = 0;   
           angular.forEach($scope.listOfProducts, function(item, index){
             
-            sum += parseInt(item.price, 10)* parseInt(item.Quantity, 10);
+            sum += parseInt(item.Price, 10)* parseInt(item.Quantity, 10);
            });
           return sum;
             

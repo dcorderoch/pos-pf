@@ -20,12 +20,11 @@
        * Envia mensaje de comienzo de transaccion para el timestamp
        * 
        */
-        function StartTransaction(data) {
-            console.log(data);
+        function StartTransaction(Data) {
             var response=$http({
                 method:"post",          //talvez al final no sea un post
                 url: $rootScope.url+"Api/Sale/Make",
-                data: data
+                data: Data 
             });
             return response;    
         }
@@ -37,7 +36,7 @@
         function SendEAN(EAN) {
             var response=$http({
                 method:"post",
-                url:$rootScope.url+"X",
+                url:$rootScope.url+"Api/Product/Get",
                 data: EAN
             });
             return response;    
@@ -50,7 +49,7 @@
         function SavePurchase(Data){  
             var response=$http({
                 method:"post",
-                url: $rootScope.url+"",
+                url: $rootScope.url+"Api/Sale/End",
                 data: Data
             });
             return response;    
