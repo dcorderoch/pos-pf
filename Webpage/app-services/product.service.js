@@ -35,8 +35,8 @@
        */      
         function Read() {
             var response=$http({
-                method:"post",
-                url:$rootScope.url+"Api/Product/Get"
+                method:"get",
+                url:$rootScope.url+"Api/Product/GetAll"
             });
             return response;    
         }
