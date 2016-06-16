@@ -76,7 +76,7 @@ namespace WEBAPI.Services.Services
             var db = new PospfEntities();
             try
             {
-                var BranchOffice = db.BranchOffices.FirstOrDefault(x => x.OfficeIDEquals(pIdNumber));
+                var BranchOffice = db.BranchOffices.FirstOrDefault(x => x.OfficeID == pIdNumber);
                 if (BranchOffice == null)
                 {
                     return false;
