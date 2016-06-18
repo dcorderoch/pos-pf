@@ -1,0 +1,384 @@
+﻿/************************************************************/
+/************************************************************/
+# POST to this when the first product is added to make a new sale
+# if customer pays with cash, use "CustomerId":"000000000"
+http://localhost:12262/Api/Sale/Make
+Application sends
+{
+"CustomerId":"115020180",
+"CashierId":"1001",
+"OfficeId":"2"
+}
+Receives
+{
+"SaleID":5
+}
+
+/************************************************************/
+# POST to this when the products are paid for to end the sale
+http://localhost:12262/Api/Sale/End
+Application sends
+{
+"SaleID":"10",
+"Products":[
+            {"EAN":"7441036101225","Qty":"6"},
+            {"EAN":"7441003400207","Qty":"2"}
+           ]
+}
+
+Receives
+{
+"StatusCode":1,
+"MSG":"nada que reportar"
+}
+or
+{
+"StatusCode":1,
+"MSG":"hay productos con bajo inventario"
+}
+
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New Product
+http://localhost:12262/Api/Product/Create
+Application sends
+{
+"EAN":"7453015132311",
+"Name":"5000 u. Grapas Studmark",
+"Price":550,
+"Quantity":15,
+"DailyAverageSales":2,
+"DaysBtwnShipment":2
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to get Product Information
+http://localhost:12262/Api/Product/Get
+Application sends
+{
+"EAN":"7441001615610"
+}
+
+Receives
+{
+"EAN":"7441001615610",
+"Name":"Caja Leche 1L",
+"Price":575,
+"Quantity":10,
+"DailyAverageSales":2,
+"DaysBtwnShipment":2,
+"ProductInSales":[]
+}
+
+/************************************************************/
+# POST to this to Update Product Information
+http://localhost:12262/Api/Product/Update
+Application sends
+{
+"EAN":"7453015132311",
+"Name":"5000 u. Grapas Studmark",
+"Price":550,
+"Quantity":20,
+"DailyAverageSales":2,
+"DaysBtwnShipment":21
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to Delete a Product (can't delete a product that's been sold)
+http://localhost:12262/Api/Product/Delete
+Application sends
+{
+"EAN":"7453015132311"
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+/************************************************************/
+# POST to this to insert staff member shift log information to DB
+http://localhost:12262/Api/StaffShift/Start
+Application sends
+Start
+{
+"StaffId":1001,
+"Regster":7,
+"MoneyOnStart":25000
+}
+
+Receives
+{
+"LogID":5
+}
+
+/************************************************************/
+# POST to this to update staff member shift log information
+http://localhost:12262/Api/StaffShift/End
+Application sends
+{
+"StaffLogId":5,
+"MoneyOnEnd":150000
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New Member of Staff
+http://localhost:12262/Api/Staff/Create
+Application sends
+{
+"BOfficeID":"2",
+"Name":"María",
+"LastName1":"Casttro",
+"LastName2":"Arias"
+}
+
+Receives
+{
+"StaffID":1009
+}
+
+/************************************************************/
+# POST to this to Get a Member of Staff
+http://localhost:12262/Api/Staff/Get
+Application sends
+{
+"StaffID":1009
+}
+
+Receives
+{
+"StaffID":"1009",
+"BOfficeID":"2",
+"Name":"María",
+"LastName1":"Castro",
+"LastName2":"Arias"
+}
+
+/************************************************************/
+# POST to this to Update a Member of Staff
+http://localhost:12262/Api/Staff/Update
+Application sends
+{
+"StaffID":"1009",
+"BOfficeID":"2",
+"Name":"María",
+"LastName1":"Castro",
+"LastName2":"Arias"
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to Delete a Member of Staff
+http://localhost:12262/Api/Staff/Delete
+Application sends
+{
+"StaffID":"1009"
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New Supplier
+http://localhost:12262/Api/Supplier/Create
+Application sends
+Create
+{
+"Name":"PipaZa",
+"PhoneNumber":"+50626614956"
+}
+
+Receives
+{
+"SupplerID":4
+}
+
+/************************************************************/
+# POST to this to Get a Supplier
+http://localhost:12262/Api/Supplier/Get
+Application sends
+{
+"SupplerID":4
+}
+
+Receives
+{
+"SupplerID":4,
+"Name":"Pipasa",
+"PhoneNumber":"+50626614956"
+}
+
+/************************************************************/
+# POST to this to Update a Supplier
+http://localhost:12262/Api/Supplier/Update
+Application sends
+{
+"SupplerID":4,
+"Name":"Pipasa",
+"PhoneNumber":"+50626614956"
+}
+
+/************************************************************/
+# POST to this to Delete a Supplier
+http://localhost:12262/Api/Supplier/Delete
+Application sends
+{
+"SupplerID":4
+}
+
+Receives
+{
+"StatusCode":1
+}
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New Customer
+http://localhost:12262/Api/Customer/Create
+Application sends
+{
+  "IDNumber": "" ,
+  "Name": "",
+  "LastName1": "",
+  "LastName2": ""
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to get Customer Information
+http://localhost:12262/Api/Customer/Get
+Application sends
+{
+"ÏDNumber":""
+}
+
+Receives
+{
+  "IDNumber": "" ,
+  "Name": "",
+  "LastName1": "",
+  "LastName2": ""
+}
+
+
+
+/************************************************************/
+# POST to this to Update Customer Information
+http://localhost:12262/Api/Customer/Update
+Application sends
+{
+  "IDNumber": "" ,
+  "Name": "",
+  "LastName1": "",
+  "LastName2": ""
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to Delete a Customer (can't delete a product that's been sold)
+http://localhost:12262/Api/Customer/Delete
+Application sends
+{
+"ÏDNumber":""
+}
+
+Receives
+{
+"StatusCode":1
+}
+/************************************************************/
+/************************************************************/
+# POST to this to Create a New BranchOffice
+http://localhost:12262/Api/BranchOffice/Create
+Application sends
+{
+  "OfficeID": ,
+  "Name": "",
+  "PhoneNumber": "",
+  "Location": ""
+}
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to get BranchOffice Information
+http://localhost:12262/Api/BranchOffice/Get
+Application sends
+{
+"ÏDNumber":""
+}
+
+Receives
+{
+  "OfficeID": ,
+  "Name": "",
+  "PhoneNumber": "",
+  "Location": ""
+}
+
+
+
+/************************************************************/
+# POST to this to Update BranchOffice Information
+http://localhost:12262/Api/BranchOffice/Update
+Application sends
+{
+  "OfficeID": ,
+  "Name": "",
+  "PhoneNumber": "",
+  "Location": ""
+}
+
+
+
+Receives
+{
+"StatusCode":1
+}
+
+/************************************************************/
+# POST to this to Delete a BranchOffice
+http://localhost:12262/Api/BranchOffice/Delete
+Application sends
+{
+"OfficeID": 
+}
+
+Receives
+{
+"StatusCode":1
+}

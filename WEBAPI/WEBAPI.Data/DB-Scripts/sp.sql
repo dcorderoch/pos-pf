@@ -1,0 +1,52 @@
+-- STORED PROCEDURE TO UPDATE
+-- THE TIME OF A SALE
+CREATE PROCEDURE ENDSALE
+@SaleID BIGINT
+AS
+BEGIN
+    UPDATE Sale
+    SET EOF = CURRENT_TIMESTAMP
+    WHERE SaleID = @SaleID
+END
+GO
+-- STORED PROCEDURE TO START A SALE
+-- RETURNS Sale ID
+CREATE PROCEDURE STARTSALE
+    @CustomerID CHAR(9), 
+    @CashierID INT, 
+    @OfficeID TINYINT
+AS
+BEGIN
+    INSERT INTO Sale(IDNumber, StaffID, BOfficeID)
+    VALUES (@CustomerID, @CashierID, @OfficeID);
+
+    SELECT SCOPE_IDENTITY() AS ThisSaleID
+END
+GO
+
+-- STORED PROCEDURE TO END STAFF SHIFT
+CREATE PROCEDURE ENDSHIFT
+    @StaffLogID BIGINT, 
+    @MoneyOnEnd INT
+AS
+BEGIN
+    UPDATE Staff_Log
+    SET ShiftEnd = CURRENT_TIMESTAMP, 
+        MoneyOnShiftEnd = @MoneyOnEnd
+    WHERE LogID = @StaffLogID
+END
+GO
+-- STORED PROCEDURE TO START STAFF SHIFT
+-- RETURNS Staff_Log ID
+CREATE PROCEDURE STARTSHIFT
+    @StaffID INT, 
+    @Register INT, 
+    @MoneyOnShiftStart INT
+AS
+BEGIN
+  INSERT INTO Staff_Log(StaffID, Register, MoneyOnShiftStart)
+  VALUES (@StaffID, @Register, @MoneyOnShiftStart);
+
+  SELECT SCOPE_IDENTITY() AS LogID
+END
+GO

@@ -10,9 +10,9 @@ namespace WEBAPI.Services.Services
     public interface IProductService
     {
         List<Product> GetProducts();
-        Product GetProduct(long pProdEan);
+        Product GetProduct(string pProdEan);
         bool SaveProduct(Product pNewProduct);
-        bool UpdateProduct(long pProdEan,Product pUpdatedProduct);
-        bool DeleteProduct(long pEan);
+        bool UpdateProduct(string pProdEan,Product pUpdatedProduct);
+        bool DeleteProduct(string pEan);
     }
 }

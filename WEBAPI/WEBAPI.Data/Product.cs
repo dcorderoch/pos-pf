@@ -14,8 +14,20 @@ namespace WEBAPI.Data
     
     public partial class Product
     {
-        public long EAN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.ProductInSales = new HashSet<ProductInSale>();
+        }
+    
+        public string EAN { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Price { get; set; }
+        public int Price { get; set; }
+        public int Quantity { get; set; }
+        public int DailyAverageSales { get; set; }
+        public int DaysBtwnShipment { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductInSale> ProductInSales { get; set; }
     }
 }

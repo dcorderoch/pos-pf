@@ -81,12 +81,12 @@
     <Content Include="DB-Scripts\populate.sql" />
     <Content Include="DB-Scripts\restrictio.sql" />
     <Content Include="packages.config" />
-    <EntityDeploy Include="Pospf.edmx">
+    <EntityDeploy Include="PospfEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Pospf.Designer.cs</LastGenOutput>
+      <LastGenOutput>PospfEDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Pospf.edmx.diagram">
-      <DependentUpon>Pospf.edmx</DependentUpon>
+    <Content Include="PospfEDM.edmx.diagram">
+      <DependentUpon>PospfEDM.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -96,38 +96,59 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pospf.Context.tt">
+    <Content Include="PospfEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Pospf.edmx</DependentUpon>
-      <LastGenOutput>Pospf.Context.cs</LastGenOutput>
+      <DependentUpon>PospfEDM.edmx</DependentUpon>
+      <LastGenOutput>PospfEDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Pospf.tt">
+    <Content Include="PospfEDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Pospf.edmx</DependentUpon>
-      <LastGenOutput>Pospf.cs</LastGenOutput>
+      <DependentUpon>PospfEDM.edmx</DependentUpon>
+      <LastGenOutput>PospfEDM.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pospf.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Pospf.Context.tt</DependentUpon>
+    <Compile Include="BranchOffice.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Pospf.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Pospf.tt</DependentUpon>
+    <Compile Include="Customer.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Pospf.Designer.cs">
+    <Compile Include="PospfEDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Pospf.edmx</DependentUpon>
+      <DependentUpon>PospfEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PospfEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PospfEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PospfEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PospfEDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>Pospf.tt</DependentUpon>
+      <DependentUpon>PospfEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductInSale.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sale.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Staff.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Staff_Log.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
+      <DependentUpon>PospfEDM.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

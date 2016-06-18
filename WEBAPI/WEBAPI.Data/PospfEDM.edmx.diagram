@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="86ccfbb95c4b4d14b5b7998f8ba463ed" Name="Diagram1">
+        <EntityTypeShape EntityType="PospfModel.BranchOffice" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.Customer" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.Product" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.ProductInSale" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.Sale" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.Staff" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.Staff_Log" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PospfModel.Supplier" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="PospfModel.FK_Sale_BranchOffice" ManuallyRouted="false" />
+        <AssociationConnector Association="PospfModel.FK_Staff_BOffice" ManuallyRouted="false" />
+        <AssociationConnector Association="PospfModel.FK_Sale_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="PospfModel.FK_ProductInSale_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="PospfModel.FK_ProductInSale_Sale" ManuallyRouted="false" />
+        <AssociationConnector Association="PospfModel.FK_Sale_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="PospfModel.FK_Staff_Log_Staff" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

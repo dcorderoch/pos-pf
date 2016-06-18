@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PospfModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BranchOffice">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="OfficeID" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="IDNumber" />
+          </Key>
+          <Property Name="IDNumber" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName1" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName2" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="EAN" />
+          </Key>
+          <Property Name="EAN" Type="char" MaxLength="13" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="DailyAverageSales" Type="int" Nullable="false" />
+          <Property Name="DaysBtwnShipment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductInSale">
+          <Key>
+            <PropertyRef Name="EAN" />
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="EAN" Type="char" MaxLength="13" Nullable="false" />
+          <Property Name="SaleID" Type="bigint" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDNumber" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="StaffID" Type="int" Nullable="false" />
+          <Property Name="BOfficeID" Type="tinyint" Nullable="false" />
+          <Property Name="STARTOF" Type="datetime" Nullable="false" />
+          <Property Name="EOF" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BOfficeID" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName1" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName2" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Staff_Log">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffID" Type="int" Nullable="false" />
+          <Property Name="Register" Type="int" Nullable="false" />
+          <Property Name="ShiftStart" Type="datetime" Nullable="false" />
+          <Property Name="ShiftEnd" Type="datetime" Nullable="false" />
+          <Property Name="MoneyOnShiftStart" Type="int" Nullable="false" />
+          <Property Name="MoneyOnShiftEnd" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplerID" />
+          </Key>
+          <Property Name="SupplerID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ProductInSale_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductInSale" Type="Self.ProductInSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="EAN" />
+            </Principal>
+            <Dependent Role="ProductInSale">
+              <PropertyRef Name="EAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductInSale_Sale">
+          <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
+          <End Role="ProductInSale" Type="Self.ProductInSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="ProductInSale">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_BranchOffice">
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="OfficeID" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="BOfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IDNumber" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IDNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_BOffice">
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="OfficeID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="BOfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Log_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Staff_Log" Type="Self.Staff_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="Staff_Log">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ENDSALE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SaleID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="ENDSHIFT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StaffLogID" Type="bigint" Mode="In" />
+          <Parameter Name="MoneyOnEnd" Type="int" Mode="In" />
+        </Function>
+        <Function Name="STARTSALE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CustomerID" Type="char" Mode="In" />
+          <Parameter Name="CashierID" Type="int" Mode="In" />
+          <Parameter Name="OfficeID" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="STARTSHIFT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StaffID" Type="int" Mode="In" />
+          <Parameter Name="Register" Type="int" Mode="In" />
+          <Parameter Name="MoneyOnShiftStart" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PospfModelStoreContainer">
+          <EntitySet Name="BranchOffice" EntityType="Self.BranchOffice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductInSale" EntityType="Self.ProductInSale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff_Log" EntityType="Self.Staff_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductInSale_Product" Association="Self.FK_ProductInSale_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductInSale" EntitySet="ProductInSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductInSale_Sale" Association="Self.FK_ProductInSale_Sale">
+            <End Role="Sale" EntitySet="Sale" />
+            <End Role="ProductInSale" EntitySet="ProductInSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_BranchOffice" Association="Self.FK_Sale_BranchOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffice" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Customer" Association="Self.FK_Sale_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Staff" Association="Self.FK_Sale_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_BOffice" Association="Self.FK_Staff_BOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffice" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Log_Staff" Association="Self.FK_Staff_Log_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Staff_Log" EntitySet="Staff_Log" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PospfModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BranchOffice">
+          <Key>
+            <PropertyRef Name="OfficeID" />
+          </Key>
+          <Property Name="OfficeID" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_BranchOffice" FromRole="BranchOffice" ToRole="Sale" />
+          <NavigationProperty Name="Staffs" Relationship="Self.FK_Staff_BOffice" FromRole="BranchOffice" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="IDNumber" />
+          </Key>
+          <Property Name="IDNumber" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Customer" FromRole="Customer" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="EAN" />
+          </Key>
+          <Property Name="EAN" Type="String" MaxLength="13" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="DailyAverageSales" Type="Int32" Nullable="false" />
+          <Property Name="DaysBtwnShipment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductInSales" Relationship="Self.FK_ProductInSale_Product" FromRole="Product" ToRole="ProductInSale" />
+        </EntityType>
+        <EntityType Name="ProductInSale">
+          <Key>
+            <PropertyRef Name="EAN" />
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="EAN" Type="String" MaxLength="13" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SaleID" Type="Int64" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductInSale_Product" FromRole="ProductInSale" ToRole="Product" />
+          <NavigationProperty Name="Sale" Relationship="Self.FK_ProductInSale_Sale" FromRole="ProductInSale" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDNumber" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="StaffID" Type="Int32" Nullable="false" />
+          <Property Name="BOfficeID" Type="Byte" Nullable="false" />
+          <Property Name="STARTOF" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EOF" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="BranchOffice" Relationship="Self.FK_Sale_BranchOffice" FromRole="Sale" ToRole="BranchOffice" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Sale_Customer" FromRole="Sale" ToRole="Customer" />
+          <NavigationProperty Name="ProductInSales" Relationship="Self.FK_ProductInSale_Sale" FromRole="Sale" ToRole="ProductInSale" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Sale_Staff" FromRole="Sale" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffID" />
+          </Key>
+          <Property Name="StaffID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BOfficeID" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BranchOffice" Relationship="Self.FK_Staff_BOffice" FromRole="Staff" ToRole="BranchOffice" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_Staff" FromRole="Staff" ToRole="Sale" />
+          <NavigationProperty Name="Staff_Log" Relationship="Self.FK_Staff_Log_Staff" FromRole="Staff" ToRole="Staff_Log" />
+        </EntityType>
+        <EntityType Name="Staff_Log">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffID" Type="Int32" Nullable="false" />
+          <Property Name="Register" Type="Int32" Nullable="false" />
+          <Property Name="ShiftStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShiftEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MoneyOnShiftStart" Type="Int32" Nullable="false" />
+          <Property Name="MoneyOnShiftEnd" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Staff_Log_Staff" FromRole="Staff_Log" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplerID" />
+          </Key>
+          <Property Name="SupplerID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Sale_BranchOffice">
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="OfficeID" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="BOfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_BOffice">
+          <End Role="BranchOffice" Type="Self.BranchOffice" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchOffice">
+              <PropertyRef Name="OfficeID" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="BOfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IDNumber" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IDNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductInSale_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductInSale" Type="Self.ProductInSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="EAN" />
+            </Principal>
+            <Dependent Role="ProductInSale">
+              <PropertyRef Name="EAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductInSale_Sale">
+          <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
+          <End Role="ProductInSale" Type="Self.ProductInSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="ProductInSale">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Log_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Staff_Log" Type="Self.Staff_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffID" />
+            </Principal>
+            <Dependent Role="Staff_Log">
+              <PropertyRef Name="StaffID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PospfEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BranchOffices" EntityType="Self.BranchOffice" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductInSales" EntityType="Self.ProductInSale" />
+          <EntitySet Name="Sales" EntityType="Self.Sale" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Staff_Log" EntityType="Self.Staff_Log" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <AssociationSet Name="FK_Sale_BranchOffice" Association="Self.FK_Sale_BranchOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffices" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_BOffice" Association="Self.FK_Staff_BOffice">
+            <End Role="BranchOffice" EntitySet="BranchOffices" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Customer" Association="Self.FK_Sale_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductInSale_Product" Association="Self.FK_ProductInSale_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductInSale" EntitySet="ProductInSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductInSale_Sale" Association="Self.FK_ProductInSale_Sale">
+            <End Role="Sale" EntitySet="Sales" />
+            <End Role="ProductInSale" EntitySet="ProductInSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Staff" Association="Self.FK_Sale_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Log_Staff" Association="Self.FK_Staff_Log_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Staff_Log" EntitySet="Staff_Log" />
+          </AssociationSet>
+          <FunctionImport Name="ENDSALE">
+            <Parameter Name="SaleID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="ENDSHIFT">
+            <Parameter Name="StaffLogID" Mode="In" Type="Int64" />
+            <Parameter Name="MoneyOnEnd" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="STARTSALE" ReturnType="Collection(Decimal)">
+            <Parameter Name="CustomerID" Mode="In" Type="String" />
+            <Parameter Name="CashierID" Mode="In" Type="Int32" />
+            <Parameter Name="OfficeID" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="STARTSHIFT" ReturnType="Collection(Decimal)">
+            <Parameter Name="StaffID" Mode="In" Type="Int32" />
+            <Parameter Name="Register" Mode="In" Type="Int32" />
+            <Parameter Name="MoneyOnShiftStart" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PospfModelStoreContainer" CdmEntityContainer="PospfEntities">
+          <EntitySetMapping Name="BranchOffices">
+            <EntityTypeMapping TypeName="PospfModel.BranchOffice">
+              <MappingFragment StoreEntitySet="BranchOffice">
+                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PospfModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastName1" ColumnName="LastName1" />
+                <ScalarProperty Name="LastName2" ColumnName="LastName2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PospfModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="EAN" ColumnName="EAN" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DailyAverageSales" ColumnName="DailyAverageSales" />
+                <ScalarProperty Name="DaysBtwnShipment" ColumnName="DaysBtwnShipment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductInSales">
+            <EntityTypeMapping TypeName="PospfModel.ProductInSale">
+              <MappingFragment StoreEntitySet="ProductInSale">
+                <ScalarProperty Name="EAN" ColumnName="EAN" />
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="PospfModel.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="BOfficeID" ColumnName="BOfficeID" />
+                <ScalarProperty Name="STARTOF" ColumnName="STARTOF" />
+                <ScalarProperty Name="EOF" ColumnName="EOF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PospfModel.Sale">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PospfModel.Store.STARTSALE" >
+                  <ScalarProperty Name="BOfficeID" ParameterName="OfficeID" />
+                  <ScalarProperty Name="StaffID" ParameterName="CashierID" />
+                  <ScalarProperty Name="IDNumber" ParameterName="CustomerID" />
+                  <ResultBinding Name="SaleID" ColumnName="ThisSaleID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="PospfModel.Store.ENDSALE">
+                  <ScalarProperty Name="SaleID" ParameterName="SaleID" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="PospfModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="BOfficeID" ColumnName="BOfficeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastName1" ColumnName="LastName1" />
+                <ScalarProperty Name="LastName2" ColumnName="LastName2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff_Log">
+            <EntityTypeMapping TypeName="PospfModel.Staff_Log">
+              <MappingFragment StoreEntitySet="Staff_Log">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="Register" ColumnName="Register" />
+                <ScalarProperty Name="ShiftStart" ColumnName="ShiftStart" />
+                <ScalarProperty Name="ShiftEnd" ColumnName="ShiftEnd" />
+                <ScalarProperty Name="MoneyOnShiftStart" ColumnName="MoneyOnShiftStart" />
+                <ScalarProperty Name="MoneyOnShiftEnd" ColumnName="MoneyOnShiftEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="PospfModel.Staff_Log">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="PospfModel.Store.STARTSHIFT">
+                  <ScalarProperty Name="MoneyOnShiftStart" ParameterName="MoneyOnShiftStart" />
+                  <ScalarProperty Name="Register" ParameterName="Register" />
+                  <ScalarProperty Name="StaffID" ParameterName="StaffID" />
+                  <ResultBinding Name="LogID" ColumnName="LogID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="PospfModel.Store.ENDSHIFT" >
+                  <ScalarProperty Name="MoneyOnShiftEnd" ParameterName="MoneyOnEnd" Version="Current" />
+                  <ScalarProperty Name="LogID" ParameterName="StaffLogID" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="PospfModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="SupplerID" ColumnName="SupplerID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ENDSALE" FunctionName="PospfModel.Store.ENDSALE" />
+          <FunctionImportMapping FunctionImportName="ENDSHIFT" FunctionName="PospfModel.Store.ENDSHIFT" />
+          <FunctionImportMapping FunctionImportName="STARTSALE" FunctionName="PospfModel.Store.STARTSALE" />
+          <FunctionImportMapping FunctionImportName="STARTSHIFT" FunctionName="PospfModel.Store.STARTSHIFT" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
