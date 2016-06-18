@@ -1,0 +1,40 @@
+
+<div id="main">
+    
+
+        <br>
+<div class="page-header">
+    <h1>Login Empleado</h1>      
+  </div>
+        <br>
+
+<!-- Este es un form, lo de input type = es el tipo de valor que se agarra, el name y el id lo puede ignorarlo -->
+<!-- El ng-model es el tipo de dato con el que se esta relacionando del modelo, esto es lo mas importante de esta parte-->
+<!-- es importante que ng.model tenga el mismo nombre que se espera en el rest api -->
+<!-- El span se muestra si se omite una entrada del formulario --> 
+
+    
+    
+    <div class="login">
+      <header class="header">
+        <span class="text">LOGIN</span>
+        <span class="loader"></span>
+      </header>
+      <form name="form" ng-submit="login()" role="form" novalidate>  
+          
+        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+            <input class="input form-control" type="text" name="username" placeholder="Username" ng-model="loginData.StaffId" required />
+            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">El nombre de usuario es requerido</span>
+        </div>  
+          
+
+          
+        <div class="form-actions">
+            <button class="btn" ng-disabled="form.$invalid"  type="submit"></button>
+        </div>
+     
+    </form>
+    </div>
+             
+
+ </div> 

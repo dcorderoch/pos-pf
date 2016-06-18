@@ -1,0 +1,161 @@
+<div id="main">
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/">POS PF</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#/">Home</a></li>
+            <li><a href="#/client">Clientes</a></li>
+            <li><a href="#/admin">Admins</a></li>
+            <li><a href="#/provider">Proveedores</a></li>
+            <li><a href="#/product">Productos</a></li>
+            <!-- <li><a href="#/employee">Empleados</a></li> -->
+            <li><a href="#/branchOffice">Sucursales</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/login"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+        
+        <div class="container">
+            <div class="well">
+
+                <p align = "center" class="lead">Aquí podés dar mantenimiento a los administradores</p>
+                <p>Todos los administradores y supervisores de Farmatica y Phischel estan disponibles  </p>
+                <p>Las operaciones CRUD estan disponibles</p> 
+            </div>
+        </div>
+
+        <div class="row">       <!-- Formato bonito para tablas-->
+            <div class="col-md-12" >
+            <nav class= "navbar navbar-default" role= "navigation" >
+                <h4 align="center"><span class="text-warning">Administradores</span></h4>  <!-- titulo de tabla-->
+                <div class= "navbar-header" ></div>
+            </nav>
+                <table class="table table-striped table-bordered">
+                <thead>
+
+                <th>ID&nbsp;</th>    
+                <th>Nombre&nbsp;</th>        <!-- tiene 2 encabezados-->
+                <th>Primer Apellido&nbsp;</th>
+                <th>Segundo Apeliido&nbsp;</th>
+                </thead>
+                <tbody>             <!-- el vm. algo debe exisitir en el controlador o en un servicio inyectado-->
+                    <tr ng-repeat="admin in allAdmins track by $index">   <!--el ng-repeat es importantisimo -->
+                                                        <!--es como un for, itera en una lista -->
+                        <td>{{admin.StaffID}}</td>
+                        <td>{{admin.Name}}</td>
+                        <td>{{admin.LastName1}}</td>
+                        <td>{{admin.LastName2}}</td>
+                        <td><button ng-click="toggle2(admin.StaffID)" type="button" class="btn btn-success" >Actualizar</button></td>
+                        <td><button ng-click="deleteAdmin(admin.StaffID)" type="button" class="btn btn-warning" >Eliminar</button> </td>
+                    </tr>           <!-- estos son los valores de la tabla-->
+                  </tbody>    
+                </table>
+            </div>
+        </div>
+        
+
+<button type="button" style="margin:2em" class="btn btn-primary"  ng-click="toggle()">Ingresar nuevo admin</button> 
+
+
+<div class="col-md-6 col-md-offset-3">     
+<div ng-show="showCreate">
+    
+<div class="container">
+    <div class="panel panel-primary">
+        <div  class="panel-heading"  style="margin:2em" >Nuevo admin</div>
+            <div class="panel-body">
+      
+                 <form name="createForm" ng-submit="create()" role="form" novalidate><!--ng-submit se da cuando se presiona submit abajo-->
+
+                    <div class="form-group" ng-class="{ 'has-error': createForm.office.$dirty && createForm.office.$error.required }">
+                        <label>Oficina</label>
+                        <input type="text" name="office"  class="form-control" ng-model="newAdmin.BOfficeID" required />
+                        <span ng-show="createForm.office.$dirty && createForm.office.$error.required" class="help-block">El numero de la oficina es requerido</span>
+                    </div>
+
+                     <div class="form-group" ng-class="{ 'has-error': createForm.name.$dirty && createForm.name.$error.required }">
+                        <label>Name</label>
+                        <input type="text" name="name"  class="form-control" ng-model="newAdmin.Name" required />
+                        <span ng-show="createForm.name.$dirty && createForm.name.$error.required" class="help-block">El nombre es requerido</span>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': createForm.lastname1.$dirty && createForm.lastname1.$error.required }">
+                        <label>Primer Apellido 1</label>
+                        <input type="text" name="lastname1"  class="form-control" ng-model="newAdmin.LastName1" required />
+                        <span ng-show="createForm.lastname1.$dirty && createForm.lastname1.$error.required" class="help-block">El primer apellido es requerido</span>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': createForm.lastname2.$dirty && createForm.lastname2.$error.required }">
+                        <label>Primer Apellido 2</label>
+                        <input type="text" name="lastname2"  class="form-control" ng-model="newAdmin.LastName2" required />
+                        <span ng-show="createForm.lastname2.$dirty && createForm.lastname2.$error.required" class="help-block">El segundo apellido es requerido</span>
+                    </div>
+
+
+                    <div class="form-actions">
+                        <!--Boton submit-->
+                        <button type="submit"  ng-disabled="dataLoading|| createForm.$invalid " class="btn btn-primary">Crear</button>
+                        <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                     </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    <div class="col-md-6 col-md-offset-3">     
+    <div ng-show="showEdit">
+        
+    <div class="container">
+        <div class="panel panel-primary">
+        <div  class="panel-heading"  style="margin:2em" >Editar admin </div>
+            <div class="panel-body">    
+
+               <form name="editForm" ng-submit="update()" role="form" novalidate><!-- ng-submit se da cuando se presiona submit abajo-->
+
+
+                    <div class="form-group" ng-class="{ 'has-error': editForm.office.$dirty && editForm.office.$error.required }">
+                        <label>Oficina</label>
+                        <input type="text" name="office"  class="form-control" ng-model="updateAdmin.BOfficeID" required />
+                        <span ng-show="editForm.office.$dirty && editForm.office.$error.required" class="help-block">El numero de la oficina es requerido</span>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': editForm.name.$dirty && form.name.$error.required }">
+                        <label>Nombre</label>
+                        <input type="text" name="name"  class="form-control" ng-model="updateAdmin.Name" required />
+                        <span ng-show="editForm.name.$dirty && editForm.name.$error.required" class="help-block">El nombre es requerido</span>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': editForm.lastname1.$dirty && editForm.lastname1.$error.required }">
+                        <label>Primer Apellido 1</label>
+                        <input type="text" name="lastname1"  class="form-control" ng-model="updateAdmin.LastName1" required />
+                        <span ng-show="editForm.lastname1.$dirty && editForm.lastname1.$error.required" class="help-block">El primer apellido es requerido</span>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': editForm.lastname2.$dirty && editForm.lastname2.$error.required }">
+                        <label>Primer Apellido 2</label>
+                        <input type="text" name="lastname2"  class="form-control" ng-model="updateAdmin.LastName2" required />
+                        <span ng-show="editForm.lastname2.$dirty && editForm.lastname2.$error.required" class="help-block">El segundo apellido es requerido</span>
+                    </div>
+
+
+                    <div class="form-actions">
+                        <!--Boton submit-->
+                        <button type="submit"  ng-disabled="editForm.$invalid || dataLoading" class="btn btn-primary">Editar</button>
+                        <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+                   
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+</div>        
+     
+</div>
