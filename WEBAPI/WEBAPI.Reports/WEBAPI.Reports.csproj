@@ -49,11 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvgAttentionTime.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AvgAttentionTime.xsd</DependentUpon>
+    </Compile>
     <Compile Include="LowInventoryReport.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LowInventoryReport.Designer.cs">
       <DependentUpon>LowInventoryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MostSoldByBranchOffice.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MostSoldByBranchOffice.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MostSoldPerCashier.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MostSoldPerCashier.xsd</DependentUpon>
     </Compile>
     <Compile Include="MostSoldProducts.cs">
       <DependentUpon>MostSoldProducts.xsd</DependentUpon>
@@ -78,6 +93,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="AvgAttentionTime.xsc">
+      <DependentUpon>AvgAttentionTime.xsd</DependentUpon>
+    </None>
+    <None Include="AvgAttentionTime.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AvgAttentionTime.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AvgAttentionTime.xss">
+      <DependentUpon>AvgAttentionTime.xsd</DependentUpon>
+    </None>
+    <None Include="MostSoldByBranchOffice.xsc">
+      <DependentUpon>MostSoldByBranchOffice.xsd</DependentUpon>
+    </None>
+    <None Include="MostSoldByBranchOffice.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MostSoldByBranchOffice.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MostSoldByBranchOffice.xss">
+      <DependentUpon>MostSoldByBranchOffice.xsd</DependentUpon>
+    </None>
+    <None Include="MostSoldPerCashier.xsc">
+      <DependentUpon>MostSoldPerCashier.xsd</DependentUpon>
+    </None>
+    <None Include="MostSoldPerCashier.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MostSoldPerCashier.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MostSoldPerCashier.xss">
+      <DependentUpon>MostSoldPerCashier.xsd</DependentUpon>
+    </None>
     <None Include="MostSoldProducts.xsc">
       <DependentUpon>MostSoldProducts.xsd</DependentUpon>
     </None>
@@ -106,10 +154,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AvgAttentionTime.rdlc" />
     <EmbeddedResource Include="LowInventoryReport.rdlc" />
     <EmbeddedResource Include="LowInventoryReport.resx">
       <DependentUpon>LowInventoryReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MostSalesPerProduct.rdlc" />
+    <EmbeddedResource Include="MostSoldByBranchOffice.rdlc" />
+    <EmbeddedResource Include="MostSoldByCashier.rdlc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

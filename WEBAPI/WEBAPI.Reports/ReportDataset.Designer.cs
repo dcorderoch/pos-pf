@@ -281,13 +281,13 @@ namespace WEBAPI.Reports {
             
             private global::System.Data.DataColumn columnEAN;
             
-            private global::System.Data.DataColumn columnLowInventoryProduct;
-            
             private global::System.Data.DataColumn columnDailyAverageSales;
             
             private global::System.Data.DataColumn columnQuantity;
             
             private global::System.Data.DataColumn columnDaysBtwnShipment;
+            
+            private global::System.Data.DataColumn columnLowStockProduct;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -332,14 +332,6 @@ namespace WEBAPI.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn LowInventoryProductColumn {
-                get {
-                    return this.columnLowInventoryProduct;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn DailyAverageSalesColumn {
                 get {
                     return this.columnDailyAverageSales;
@@ -359,6 +351,14 @@ namespace WEBAPI.Reports {
             public global::System.Data.DataColumn DaysBtwnShipmentColumn {
                 get {
                     return this.columnDaysBtwnShipment;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LowStockProductColumn {
+                get {
+                    return this.columnLowStockProduct;
                 }
             }
             
@@ -399,14 +399,14 @@ namespace WEBAPI.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductRow AddProductRow(string EAN, string LowInventoryProduct, int DailyAverageSales, int Quantity, int DaysBtwnShipment) {
+            public ProductRow AddProductRow(string EAN, int DailyAverageSales, int Quantity, int DaysBtwnShipment, string LowStockProduct) {
                 ProductRow rowProductRow = ((ProductRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         EAN,
-                        LowInventoryProduct,
                         DailyAverageSales,
                         Quantity,
-                        DaysBtwnShipment};
+                        DaysBtwnShipment,
+                        LowStockProduct};
                 rowProductRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductRow);
                 return rowProductRow;
@@ -437,10 +437,10 @@ namespace WEBAPI.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnEAN = base.Columns["EAN"];
-                this.columnLowInventoryProduct = base.Columns["LowInventoryProduct"];
                 this.columnDailyAverageSales = base.Columns["DailyAverageSales"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnDaysBtwnShipment = base.Columns["DaysBtwnShipment"];
+                this.columnLowStockProduct = base.Columns["LowStockProduct"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -448,24 +448,24 @@ namespace WEBAPI.Reports {
             private void InitClass() {
                 this.columnEAN = new global::System.Data.DataColumn("EAN", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEAN);
-                this.columnLowInventoryProduct = new global::System.Data.DataColumn("LowInventoryProduct", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLowInventoryProduct);
                 this.columnDailyAverageSales = new global::System.Data.DataColumn("DailyAverageSales", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDailyAverageSales);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
                 this.columnDaysBtwnShipment = new global::System.Data.DataColumn("DaysBtwnShipment", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDaysBtwnShipment);
+                this.columnLowStockProduct = new global::System.Data.DataColumn("LowStockProduct", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLowStockProduct);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnEAN}, true));
                 this.columnEAN.AllowDBNull = false;
                 this.columnEAN.Unique = true;
                 this.columnEAN.MaxLength = 13;
-                this.columnLowInventoryProduct.AllowDBNull = false;
-                this.columnLowInventoryProduct.MaxLength = 100;
                 this.columnDailyAverageSales.AllowDBNull = false;
                 this.columnQuantity.ReadOnly = true;
                 this.columnDaysBtwnShipment.AllowDBNull = false;
+                this.columnLowStockProduct.AllowDBNull = false;
+                this.columnLowStockProduct.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -619,17 +619,6 @@ namespace WEBAPI.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string LowInventoryProduct {
-                get {
-                    return ((string)(this[this.tableProduct.LowInventoryProductColumn]));
-                }
-                set {
-                    this[this.tableProduct.LowInventoryProductColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int DailyAverageSales {
                 get {
                     return ((int)(this[this.tableProduct.DailyAverageSalesColumn]));
@@ -663,6 +652,17 @@ namespace WEBAPI.Reports {
                 }
                 set {
                     this[this.tableProduct.DaysBtwnShipmentColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string LowStockProduct {
+                get {
+                    return ((string)(this[this.tableProduct.LowStockProductColumn]));
+                }
+                set {
+                    this[this.tableProduct.LowStockProductColumn] = value;
                 }
             }
             
@@ -839,10 +839,10 @@ namespace WEBAPI.Reports.ReportDatasetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Product";
             tableMapping.ColumnMappings.Add("EAN", "EAN");
-            tableMapping.ColumnMappings.Add("LowInventoryProduct", "LowInventoryProduct");
             tableMapping.ColumnMappings.Add("DailyAverageSales", "DailyAverageSales");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             tableMapping.ColumnMappings.Add("DaysBtwnShipment", "DaysBtwnShipment");
+            tableMapping.ColumnMappings.Add("LowStockProduct", "LowStockProduct");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -859,11 +859,10 @@ namespace WEBAPI.Reports.ReportDatasetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT        EAN, Name AS LowInventoryProduct, DailyAverageSales, MIN(Quantity) AS Quantity, DaysBtwnShipment
-FROM            Product
-WHERE        (Quantity < DailyAverageSales)
-GROUP BY EAN, Name, DailyAverageSales, DaysBtwnShipment
-ORDER BY Quantity";
+            this._commandCollection[0].CommandText = "SELECT        EAN, Name AS LowStockProduct, DailyAverageSales, MIN(Quantity) AS Q" +
+                "uantity, DaysBtwnShipment\r\nFROM            Product\r\nWHERE        (Quantity < Dai" +
+                "lyAverageSales)\r\nGROUP BY EAN, Name, DailyAverageSales, DaysBtwnShipment\r\nORDER " +
+                "BY Quantity";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
